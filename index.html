@@ -3,412 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aroma Craft | 手工精品咖啡烘焙</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        coffee: {
-                            50: '#fdfbf7',
-                            100: '#f4ede2',
-                            600: '#8c6239',
-                            700: '#6f4e37',
-                            800: '#523828',
-                            900: '#38251a',
-                        }
-                    }
-                }
-            }
+    <title>咖啡生豆即時報價系統</title>
+    <style>
+        :root {
+            --market-dark: #1E293B;
+            --market-green: #10B981;
+            --market-card: #FFFFFF;
+            --bg-slate: #F8FAFC;
+            --border-color: #E2E8F0;
         }
-    </script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-slate);
+            color: var(--market-dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--market-dark);
+        }
+
+        .live-badge {
+            background-color: #DEF7EC;
+            color: #03543F;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--market-green);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* 報價表格樣式 */
+        .market-table-container {
+            background-color: var(--market-card);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #F1F5F9;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        td {
+            font-size: 15px;
+        }
+
+        .price-up {
+            color: var(--market-green);
+            font-weight: bold;
+        }
+
+        .price-down {
+            color: #EF4444;
+            font-weight: bold;
+        }
+
+        /* 採購計算機區塊 */
+        .calculator-card {
+            background-color: var(--market-card);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .calculator-card h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--market-dark);
+        }
+
+        .calc-form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #64748B;
+        }
+
+        select, input {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        select:focus, input:focus {
+            border-color: #3B82F6;
+        }
+
+        .calc-result {
+            background-color: #F8FAFC;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            color: #1E293B;
+        }
+    </style>
 </head>
-<body class="bg-coffee-50 text-coffee-900 font-sans antialiased selection:bg-coffee-600 selection:text-white">
+<body>
 
-    <!-- 導覽列 -->
-    <header class="fixed top-0 left-0 w-full bg-coffee-900/95 backdrop-blur-md text-white z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="text-2xl font-bold tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-mug-hot text-coffee-600"></i> AROMA CRAFT
-            </a>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-                <a href="#about" class="hover:text-coffee-600 transition">品牌哲學</a>
-                <a href="#products" class="hover:text-coffee-600 transition">精選豆單</a>
-                <a href="#process" class="hover:text-coffee-600 transition">烘焙工藝</a>
-                <a href="#contact" class="hover:text-coffee-600 transition">聯絡我們</a>
-            </nav>
-            <div class="flex items-center space-x-4">
-                <button onclick="toggleCart()" class="relative bg-coffee-800 hover:bg-coffee-700 p-2.5 rounded-full transition">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-amber-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
-                </button>
-                <a href="#products" class="hidden sm:inline-block bg-coffee-600 hover:bg-coffee-700 text-white px-5 py-2.5 rounded-full text-sm font-medium transition shadow-sm">
-                    立即選購
-                </a>
+    <div class="container">
+        <header>
+            <h1>🌱 咖啡生豆即時報價與期貨行情</h1>
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                市場即時連線中
             </div>
+        </header>
+
+        <!-- 生豆報價清單 -->
+        <div class="market-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>產區 / 品種</th>
+                        <th>等級 / 處理法</th>
+                        <th>每公斤美金 (USD/kg)</th>
+                        <th>24小時漲跌</th>
+                        <th>台幣參考價 (TWD/kg)</th>
+                    </tr>
+                </thead>
+                <tbody id="marketTableBody">
+                    <!-- 動態載入資料 -->
+                </tbody>
+            </table>
         </div>
-    </header>
 
-    <!-- 英雄區塊 (Hero Section) -->
-    <section class="relative h-screen flex items-center justify-center bg-cover bg-center text-white pt-20" style="background-image: linear-gradient(rgba(56, 37, 26, 0.7), rgba(56, 37, 26, 0.8)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1920&q=80');">
-        <div class="text-center max-w-3xl px-4 space-y-6">
-            <span class="bg-coffee-600/80 text-amber-200 text-xs sm:text-sm uppercase tracking-widest px-4 py-1.5 rounded-full font-semibold">
-                100% 精品小農手選咖啡豆
-            </span>
-            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
-                每一滴堅持，只為喚醒挑剔的味蕾
-            </h1>
-            <p class="text-lg sm:text-xl text-coffee-100 font-light max-w-2xl mx-auto">
-                嚴選世界產區頂級生豆，職人小鍋慢火烘焙。從產地到杯底，為您保留最純粹的風土香氣。
-            </p>
-            <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#products" class="bg-amber-600 hover:bg-amber-700 text-white font-medium px-8 py-4 rounded-full transition shadow-lg text-center">
-                    探索熱銷豆單
-                </a>
-                <a href="#about" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition text-center backdrop-blur-sm">
-                    了解我們的故事
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 品牌優勢 (Features) -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="text-center p-6 space-y-4 rounded-2xl bg-coffee-50 border border-coffee-100 transition hover:shadow-md">
-                    <div class="w-16 h-16 mx-auto bg-coffee-600 text-white rounded-full flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-seedling"></i>
-                    </div>
-                    <h3 class="text-xl font-bold">產地嚴選直送</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        直接與衣索比亞、哥倫比亞等知名莊園合作，確保生豆品質與公平貿易價值。
-                    </p>
+        <!-- 批次採購計算機 -->
+        <div class="calculator-card">
+            <h3>🧮 生豆批次採購成本計算機</h3>
+            <div class="calc-form-group">
+                <div class="form-field">
+                    <label for="beanSelect">選擇生豆</label>
+                    <select id="beanSelect" onchange="calculateCost()">
+                        <!-- 動態載入選項 -->
+                    </select>
                 </div>
-                <div class="text-center p-6 space-y-4 rounded-2xl bg-coffee-50 border border-coffee-100 transition hover:shadow-md">
-                    <div class="w-16 h-16 mx-auto bg-coffee-600 text-white rounded-full flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-fire-flame-curved"></i>
-                    </div>
-                    <h3 class="text-xl font-bold">職人小鍋烘焙</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        針對每款豆子的特性精準調控曲線，完美釋放花香、果酸與醇厚平衡感。
-                    </p>
+                <div class="form-field">
+                    <label for="weightInput">採購數量 (公斤)</label>
+                    <input type="number" id="weightInput" value="60" min="1" oninput="calculateCost()">
                 </div>
-                <div class="text-center p-6 space-y-4 rounded-2xl bg-coffee-50 border border-coffee-100 transition hover:shadow-md">
-                    <div class="w-16 h-16 mx-auto bg-coffee-600 text-white rounded-full flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-box-open"></i>
-                    </div>
-                    <h3 class="text-xl font-bold">黃金賞味新鮮保證</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        堅持養豆期後出貨，配備單向排氣閥精美包裝，鎖住每一克新鮮香氣。
-                    </p>
+                <div class="form-field">
+                    <label for="exchangeRate">美金兌台幣匯率</label>
+                    <input type="number" id="exchangeRate" value="32.5" step="0.1" oninput="calculateCost()">
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- 精選商品 (Products / E-commerce) -->
-    <section id="products" class="py-24 bg-coffee-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-coffee-900">熱銷精品豆單</h2>
-                <p class="text-gray-600">挑選專屬您的風味，享受每一口沈浸式的午茶時光。</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- 商品 1 -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-coffee-200 flex flex-col justify-between transition hover:-translate-y-1">
-                    <div>
-                        <div class="relative h-64 overflow-hidden bg-gray-200">
-                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80" alt="衣索比亞 耶加雪菲" class="w-full h-full object-cover">
-                            <span class="absolute top-4 left-4 bg-amber-600 text-white text-xs px-3 py-1 rounded-full font-bold">淺焙</span>
-                        </div>
-                        <div class="p-6 space-y-3">
-                            <div class="text-xs text-coffee-600 font-semibold tracking-wider uppercase">Ethiopia Yirgacheffe</div>
-                            <h3 class="text-xl font-bold text-coffee-900">衣索比亞 耶加雪菲 紅櫻桃計畫</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">
-                                帶有明亮的茉莉花香、柑橘與檸檬皮風味，口感如伯爵茶般輕盈細緻。
-                            </p>
-                            <div class="text-sm font-semibold text-gray-500">規格：200g / 半磅</div>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between">
-                        <span class="text-2xl font-extrabold text-amber-700">NT$ 480</span>
-                        <button onclick="addToCart('衣索比亞 耶加雪菲', 480)" class="bg-coffee-800 hover:bg-coffee-900 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2">
-                            <i class="fa-solid fa-cart-plus"></i> 加到購物車
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 商品 2 -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-coffee-200 flex flex-col justify-between transition hover:-translate-y-1">
-                    <div>
-                        <div class="relative h-64 overflow-hidden bg-gray-200">
-                            <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=800&q=80" alt="瓜地馬拉 花神" class="w-full h-full object-cover">
-                            <span class="absolute top-4 left-4 bg-amber-700 text-white text-xs px-3 py-1 rounded-full font-bold">中焙</span>
-                        </div>
-                        <div class="p-6 space-y-3">
-                            <div class="text-xs text-coffee-600 font-semibold tracking-wider uppercase">Guatemala Antigua</div>
-                            <h3 class="text-xl font-bold text-coffee-900">瓜地馬拉 安提瓜 花神</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">
-                                經典水洗豆代表。具備濃郁堅果香、牛奶巧克力尾韻，口感溫潤順口。
-                            </p>
-                            <div class="text-sm font-semibold text-gray-500">規格：200g / 半磅</div>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between">
-                        <span class="text-2xl font-extrabold text-amber-700">NT$ 450</span>
-                        <button onclick="addToCart('瓜地馬拉 安提瓜 花神', 450)" class="bg-coffee-800 hover:bg-coffee-900 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2">
-                            <i class="fa-solid fa-cart-plus"></i> 加到購物車
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 商品 3 -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-coffee-200 flex flex-col justify-between transition hover:-translate-y-1">
-                    <div>
-                        <div class="relative h-64 overflow-hidden bg-gray-200">
-                            <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=800&q=80" alt="曼特寧黃金烘焙" class="w-full h-full object-cover">
-                            <span class="absolute top-4 left-4 bg-coffee-900 text-white text-xs px-3 py-1 rounded-full font-bold">深焙</span>
-                        </div>
-                        <div class="p-6 space-y-3">
-                            <div class="text-xs text-coffee-600 font-semibold tracking-wider uppercase">Sumatran Mandheling</div>
-                            <h3 class="text-xl font-bold text-coffee-900">蘇門答臘 黃金曼特寧 G1</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">
-                                濃郁的藥草、黑巧克力與焦糖香氣，厚實飽滿，非常適合拿鐵與美式咖啡。
-                            </p>
-                            <div class="text-sm font-semibold text-gray-500">規格：200g / 半磅</div>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between">
-                        <span class="text-2xl font-extrabold text-amber-700">NT$ 420</span>
-                        <button onclick="addToCart('蘇門答臘 黃金曼特寧 G1', 420)" class="bg-coffee-800 hover:bg-coffee-900 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2">
-                            <i class="fa-solid fa-cart-plus"></i> 加到購物車
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 品牌故事 / 理念 (About) -->
-    <section id="about" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <span class="text-coffee-600 font-bold uppercase tracking-widest text-sm">Our Philosophy</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-coffee-900 leading-tight">
-                        用一杯好咖啡，找回生活裡最純粹的節奏
-                    </h2>
-                    <p class="text-gray-600 leading-relaxed">
-                        成立於 2021 年，Aroma Craft 堅信咖啡不只是提神的工具，而是一種生活儀式。我們走訪各大知名產區，親自挑選每一批具有靈魂的生豆，透過職人的手藝與科學數據的結合，捕捉最完美的風味平衡。
-                    </p>
-                    <div class="grid grid-cols-2 gap-6 pt-4">
-                        <div class="border-l-4 border-coffee-600 pl-4">
-                            <div class="text-3xl font-extrabold text-coffee-900">100%</div>
-                            <div class="text-sm text-gray-500">精選阿拉比卡豆</div>
-                        </div>
-                        <div class="border-l-4 border-coffee-600 pl-4">
-                            <div class="text-3xl font-extrabold text-coffee-900">48hr</div>
-                            <div class="text-sm text-gray-500">新鮮烘焙出貨</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=1000&q=80" alt="手沖咖啡過程" class="rounded-2xl shadow-xl w-full object-cover h-[450px]">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 聯絡與客服 (Contact Section / CRO) -->
-    <section id="contact" class="py-24 bg-coffee-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="space-y-6">
-                    <span class="text-amber-500 font-bold uppercase tracking-widest text-sm">Get in Touch</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold">聯絡我們與批發合作</h2>
-                    <p class="text-coffee-100 leading-relaxed">
-                        無論是尋找辦公室訂閱方案、商業豆批發、或是任何沖煮上的疑問，我們的專業咖啡師團隊隨時為您解答。
-                    </p>
-                    <div class="space-y-4 pt-2">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-coffee-800 rounded-full flex items-center justify-center text-amber-500">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-400">客服專線</div>
-                                <div class="font-bold">+886 2 2345 6789</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-coffee-800 rounded-full flex items-center justify-center text-amber-500">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-400">電子信箱</div>
-                                <div class="font-bold">service@aromacraft.com</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white text-coffee-900 p-8 rounded-2xl shadow-xl">
-                    <h3 class="text-2xl font-bold mb-6">快速諮詢表單</h3>
-                    <form onsubmit="handleSubmit(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">您的姓名</label>
-                            <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-coffee-600 focus:outline-none" placeholder="王小明">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">電子信箱</label>
-                            <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-coffee-600 focus:outline-none" placeholder="name@example.com">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">諮詢內容</label>
-                            <textarea rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-coffee-600 focus:outline-none" placeholder="請輸入您想詢問的內容..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-coffee-800 hover:bg-coffee-900 text-white font-medium py-3.5 rounded-xl transition shadow-md">
-                            送出表單
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 頁尾 (Footer) -->
-    <footer class="bg-black text-gray-400 py-12 text-sm border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-2 text-white font-bold text-lg">
-                <i class="fa-solid fa-mug-hot text-amber-600"></i> AROMA CRAFT
-            </div>
-            <div>
-                &copy; 2026 Aroma Craft Coffee. All rights reserved.
-            </div>
-            <div class="flex space-x-6 text-lg">
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-line"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 簡易購物車抽屜 / 互動邏輯 -->
-    <div id="cart-drawer" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity">
-        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col p-6">
-            <div class="flex items-center justify-between pb-4 border-b">
-                <h3 class="text-xl font-bold text-coffee-900 flex items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping text-coffee-600"></i> 您的購物車
-                </h3>
-                <button onclick="toggleCart()" class="text-gray-500 hover:text-black text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            
-            <div id="cart-items" class="flex-1 overflow-y-auto py-4 space-y-4">
-                <!-- 動態插入購物車品項 -->
-                <p class="text-gray-500 text-center py-10">購物車目前是空的</p>
-            </div>
-
-            <div class="border-t pt-4 space-y-4">
-                <div class="flex justify-between text-lg font-bold text-coffee-900">
-                    <span>總計：</span>
-                    <span id="cart-total">NT$ 0</span>
-                </div>
-                <button onclick="checkout()" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-3.5 rounded-xl font-medium transition shadow-md">
-                    前往結帳
-                </button>
+            <div class="calc-result" id="totalResult">
+                預估總金額：$0 TWD
             </div>
         </div>
     </div>
 
-    <!-- JavaScript 互動功能 -->
     <script>
-        let cart = [];
+        // 模擬咖啡生豆即時市場資料
+        let greenCoffeeData = [
+            { id: 1, name: "衣索比亞 耶加雪菲", grade: "G1 水洗", usdPrice: 9.80, change: "+1.2%" },
+            { id: 2, name: "哥倫比亞 薇拉", grade: "Supremo", usdPrice: 8.50, change: "-0.5%" },
+            { id: 3, name: "瓜地馬拉 薇薇特南果", grade: "SHB", usdPrice: 8.90, change: "+0.8%" },
+            { id: 4, name: "印尼 蘇門答臘 曼特寧", grade: "G1 三次手挑", usdPrice: 9.20, change: "+0.0%" },
+            { id: 5, name: "巴西 喜拉朵", grade: "NY2 17/18", usdPrice: 6.40, change: "-1.1%" }
+        ];
 
-        function toggleCart() {
-            const drawer = document.getElementById('cart-drawer');
-            drawer.classList.toggle('hidden');
-        }
+        const exchangeRateInput = document.getElementById('exchangeRate');
+        const marketTableBody = document.getElementById('marketTableBody');
+        const beanSelect = document.getElementById('beanSelect');
+        const weightInput = document.getElementById('weightInput');
+        const totalResult = document.getElementById('totalResult');
 
-        function addToCart(name, price) {
-            const existingItem = cart.find(item => item.name === name);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name, price, quantity: 1 });
-            }
-            updateCartUI();
-            
-            // 輕量提示
-            alert(`已成功將「${name}」加入購物車！`);
-        }
+        // 渲染即時報價表格
+        function renderMarketTable() {
+            marketTableBody.innerHTML = "";
+            const rate = parseFloat(exchangeRateInput.value) || 32.5;
 
-        function updateCartUI() {
-            const cartCount = document.getElementById('cart-count');
-            const cartItems = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
+            greenCoffeeData.forEach(bean => {
+                const twdPrice = (bean.usdPrice * rate).toFixed(2);
+                const changeClass = bean.change.startsWith('+') ? 'price-up' : (bean.change.startsWith('-') ? 'price-down' : '');
 
-            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalCount;
-
-            if (cart.length === 0) {
-                cartItems.innerHTML = `<p class="text-gray-500 text-center py-10">購物車目前是空的</p>`;
-                cartTotal.textContent = `NT$ 0`;
-                return;
-            }
-
-            let html = '';
-            let total = 0;
-
-            cart.forEach((item, index) => {
-                total += item.price * item.quantity;
-                html += `
-                    flex items-center justify-between bg-coffee-50 p-3 rounded-xl border border-coffee-100 flex flex-row
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${bean.name}</strong></td>
+                    <td>${bean.grade}</td>
+                    <td>$${bean.usdPrice.toFixed(2)}</td>
+                    <td class="${changeClass}">${bean.change}</td>
+                    <td>NT$ ${twdPrice}</td>
                 `;
-                html = `
-                    <div class="flex items-center justify-between bg-coffee-50 p-3 rounded-xl border border-coffee-100">
-                        <div>
-                            <h4 class="font-bold text-sm text-coffee-900">${item.name}</h4>
-                            <div class="text-xs text-gray-500">NT$ ${item.price} × ${item.quantity}</div>
-                        </div>
-                        <button onclick="removeItem(${index})" class="text-red-500 hover:text-red-700 text-sm p-1">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                `;
+                marketTableBody.appendChild(row);
             });
-
-            cartItems.innerHTML = html;
-            cartTotal.textContent = `NT$ ${total}`;
         }
 
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCartUI();
+        // 渲染計算機下拉選單
+        function renderBeanSelect() {
+            beanSelect.innerHTML = "";
+            greenCoffeeData.forEach(bean => {
+                const option = document.createElement('option');
+                option.value = bean.usdPrice;
+                option.textContent = `${bean.name} (${bean.grade}) - $${bean.usdPrice.toFixed(2)} USD/kg`;
+                beanSelect.appendChild(option);
+            });
+            calculateCost();
         }
 
-        function checkout() {
-            if (cart.length === 0) {
-                alert('您的購物車是空的，無法結帳。');
-                return;
-            }
-            alert('感謝您的購買！此為展示用網站，金流串接功能已準備就緒。');
-            cart = [];
-            updateCartUI();
-            toggleCart();
+        // 計算採購成本
+        function calculateCost() {
+            const unitPriceUSD = parseFloat(beanSelect.value) || 0;
+            const weight = parseFloat(weightInput.value) || 0;
+            const rate = parseFloat(exchangeRateInput.value) || 32.5;
+
+            const totalUSD = unitPriceUSD * weight;
+            const totalTWD = totalUSD * rate;
+
+            totalResult.textContent = `預估總金額：$${totalTWD.toLocaleString('zh-TW', { maximumFractionDigits: 0 })} TWD (約 $${totalUSD.toFixed(2)} USD)`;
         }
 
-        function handleSubmit(event) {
-            event.preventDefault();
-            alert('感謝您的填寫！我們已收到您的訊息，將盡快由專人與您聯繫。');
-            event.target.reset();
+        // 初始化執行
+        function initApp() {
+            renderMarketTable();
+            renderBeanSelect();
         }
+
+        // 監聽匯率變動連動更新表格與計算
+        exchangeRateInput.addEventListener('input', () => {
+            renderMarketTable();
+            calculateCost();
+        });
+
+        initApp();
     </script>
 </body>
 </html>
