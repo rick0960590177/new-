@@ -157,12 +157,20 @@
 
         .calc-result {
             background-color: #F8FAFC;
-            padding: 15px;
+            padding: 20px;
             border-radius: 6px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            text-align: right;
             color: #1E293B;
+            line-height: 1.6;
+        }
+
+        .calc-result div {
+            margin-bottom: 5px;
+        }
+
+        .calc-result div:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -186,7 +194,6 @@
                         <th>等級 / 處理法</th>
                         <th>每公斤美金 (USD/kg)</th>
                         <th>24小時漲跌</th>
-                        <th>台幣參考價 (TWD/kg)</th>
                     </tr>
                 </thead>
                 <tbody id="marketTableBody">
@@ -210,18 +217,22 @@
                     <input type="number" id="weightInput" value="60" min="1" oninput="calculateCost()">
                 </div>
                 <div class="form-field">
-                    <label for="exchangeRate">美金兌台幣匯率</label>
-                    <input type="number" id="exchangeRate" value="32.5" step="0.1" oninput="calculateCost()">
+                    <label for="exchangeRateTWD">美金兌台幣匯率 (TWD)</label>
+                    <input type="number" id="exchangeRateTWD" value="32.5" step="0.1" oninput="calculateCost()">
+                </div>
+                <div class="form-field">
+                    <label for="exchangeRateVND">美金兌越南盾匯率 (VND)</label>
+                    <input type="number" id="exchangeRateVND" value="25000" step="100" oninput="calculateCost()">
                 </div>
             </div>
             <div class="calc-result" id="totalResult">
-                預估總金額：$0 TWD
+                <!-- 動態顯示計算結果 -->
             </div>
         </div>
     </div>
 
     <script>
-        // 模擬咖啡生豆即時市場資料（已包含越南阿拉比卡與羅布斯塔）
+        // 咖啡生豆即時市場資料
         let greenCoffeeData = [
             { id: 1, name: "衣索比亞 耶加雪菲", grade: "G1 水洗", usdPrice: 9.80, change: "+1.2%" },
             { id: 2, name: "哥倫比亞 薇拉", grade: "Supremo", usdPrice: 8.50, change: "-0.5%" },
@@ -232,7 +243,8 @@
             { id: 7, name: "越南 邦美蜀羅布斯塔", grade: "Screen 18 / 天然日曬", usdPrice: 4.20, change: "+1.5%" }
         ];
 
-        const exchangeRateInput = document.getElementById('exchangeRate');
+        const exchangeRateTWD = document.getElementById('exchangeRateTWD');
+        const exchangeRateVND = document.getElementById('exchangeRateVND');
         const marketTableBody = document.getElementById('marketTableBody');
         const beanSelect = document.getElementById('beanSelect');
         const weightInput = document.getElementById('weightInput');
@@ -241,10 +253,8 @@
         // 渲染即時報價表格
         function renderMarketTable() {
             marketTableBody.innerHTML = "";
-            const rate = parseFloat(exchangeRateInput.value) || 32.5;
 
             greenCoffeeData.forEach(bean => {
-                const twdPrice = (bean.usdPrice * rate).toFixed(2);
                 const changeClass = bean.change.startsWith('+') ? 'price-up' : (bean.change.startsWith('-') ? 'price-down' : '');
 
                 const row = document.createElement('tr');
@@ -253,7 +263,6 @@
                     <td>${bean.grade}</td>
                     <td>$${bean.usdPrice.toFixed(2)}</td>
                     <td class="${changeClass}">${bean.change}</td>
-                    <td>NT$ ${twdPrice}</td>
                 `;
                 marketTableBody.appendChild(row);
             });
@@ -271,16 +280,23 @@
             calculateCost();
         }
 
-        // 計算採購成本
+        // 計算採購成本（包含台幣與越南盾）
         function calculateCost() {
             const unitPriceUSD = parseFloat(beanSelect.value) || 0;
             const weight = parseFloat(weightInput.value) || 0;
-            const rate = parseFloat(exchangeRateInput.value) || 32.5;
+            const rateTWD = parseFloat(exchangeRateTWD.value) || 32.5;
+            const rateVND = parseFloat(exchangeRateVND.value) || 25000;
 
             const totalUSD = unitPriceUSD * weight;
-            const totalTWD = totalUSD * rate;
+            const totalTWD = totalUSD * rateTWD;
+            const totalVND = totalUSD * rateVND;
 
-            totalResult.textContent = `預估總金額：$${totalTWD.toLocaleString('zh-TW', { maximumFractionDigits: 0 })} TWD (約 $${totalUSD.toFixed(2)} USD)`;
+            totalResult.innerHTML = `
+                <div>預估總金額：</div>
+                <div style="color: #2563EB;">🇹🇼 NT$ ${totalTWD.toLocaleString('zh-TW', { maximumFractionDigits: 0 })} TWD</div>
+                <div style="color: #059669;">🇻🇳 ₫ ${totalVND.toLocaleString('vi-VN', { maximumFractionDigits: 0 })} VND</div>
+                <div style="font-size: 14px; color: #64748B; font-weight: normal; margin-top: 5px;">( 约 $${totalUSD.toFixed(2)} USD )</div>
+            `;
         }
 
         // 初始化執行
@@ -289,11 +305,9 @@
             renderBeanSelect();
         }
 
-        // 監聽匯率變動連動更新表格與計算
-        exchangeRateInput.addEventListener('input', () => {
-            renderMarketTable();
-            calculateCost();
-        });
+        // 監聽匯率變動即時計算
+        exchangeRateTWD.addEventListener('input', calculateCost);
+        exchangeRateVND.addEventListener('input', calculateCost);
 
         initApp();
     </script>
