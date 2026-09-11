@@ -33,6 +33,8 @@
             margin-bottom: 25px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         header h1 {
@@ -67,12 +69,12 @@
             100% { opacity: 1; }
         }
 
-        /* 報價表格樣式 */
+        /* 報價表格樣式 (支援手機橫向捲動) */
         .market-table-container {
             background-color: var(--market-card);
             border-radius: 10px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            overflow: hidden;
+            overflow-x: auto;
             margin-bottom: 30px;
         }
 
@@ -80,6 +82,7 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
+            min-width: 600px;
         }
 
         th, td {
@@ -218,13 +221,15 @@
     </div>
 
     <script>
-        // 模擬咖啡生豆即時市場資料
+        // 模擬咖啡生豆即時市場資料（已包含越南阿拉比卡與羅布斯塔）
         let greenCoffeeData = [
             { id: 1, name: "衣索比亞 耶加雪菲", grade: "G1 水洗", usdPrice: 9.80, change: "+1.2%" },
             { id: 2, name: "哥倫比亞 薇拉", grade: "Supremo", usdPrice: 8.50, change: "-0.5%" },
             { id: 3, name: "瓜地馬拉 薇薇特南果", grade: "SHB", usdPrice: 8.90, change: "+0.8%" },
             { id: 4, name: "印尼 蘇門答臘 曼特寧", grade: "G1 三次手挑", usdPrice: 9.20, change: "+0.0%" },
-            { id: 5, name: "巴西 喜拉朵", grade: "NY2 17/18", usdPrice: 6.40, change: "-1.1%" }
+            { id: 5, name: "巴西 喜拉朵", grade: "NY2 17/18", usdPrice: 6.40, change: "-1.1%" },
+            { id: 6, name: "越南 大叻阿拉比卡", grade: "Grade 1 / 洗滌式", usdPrice: 6.80, change: "+2.1%" },
+            { id: 7, name: "越南 邦美蜀羅布斯塔", grade: "Screen 18 / 天然日曬", usdPrice: 4.20, change: "+1.5%" }
         ];
 
         const exchangeRateInput = document.getElementById('exchangeRate');
