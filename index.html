@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B2B 智慧獲客與代理商媒合平台</title>
+    <title>B2B 智慧獲客與代理商媒合平台 (純前端單檔版)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js CDN -->
@@ -18,10 +18,10 @@
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <i class="fa-solid fa-bullseye text-2xl"></i>
-                <h1 class="text-xl font-bold">B2B Lead & Distributor Finder</h1>
+                <h1 class="text-xl font-bold">B2B Lead & Distributor Finder (純前端版)</h1>
             </div>
             <div class="text-sm bg-indigo-700 px-3 py-1 rounded-full">
-                <span x-text="currentPlan"></span> | <span class="text-green-300">系統運行中</span>
+                <span x-text="currentPlan"></span> | <span class="text-green-300">免安裝後端</span>
             </div>
         </div>
     </header>
@@ -61,7 +61,7 @@
 
             <button @click="startSearch" :disabled="loading" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium hover:bg-indigo-700 transition flex items-center justify-center gap-2 disabled:bg-gray-400">
                 <i class="fa-solid fa-wand-magic-sparkles" :class="{'fa-spin': loading}"></i>
-                <span x-text="loading ? 'AI 正在深度挖掘中...' : '開始搜尋與媒合'"></span>
+                <span x-text="loading ? 'AI 正在分析關鍵字並生成名單...' : '開始搜尋與媒合'"></span>
             </button>
         </div>
 
@@ -83,7 +83,7 @@
                 <!-- 載入動畫 -->
                 <div x-show="loading" class="py-12 text-center text-gray-500 space-y-2">
                     <i class="fa-solid fa-circle-notch fa-spin text-3xl text-indigo-600"></i>
-                    <p>正在跨國資料庫與產業網站分析最適配的代理商...</p>
+                    <p>正在根據「<span x-text="form.industry"></span>」與「<span x-text="form.product"></span>」進行全球資料庫矩陣匹配...</p>
                 </div>
 
                 <!-- 名單表格 -->
@@ -93,7 +93,7 @@
                             <tr>
                                 <th class="p-3">公司名稱</th>
                                 <th class="p-3">國家/地區</th>
-                                <th class="p-3">產業匹配度</th>
+                                <th class="p-3">匹配度</th>
                                 <th class="p-3">聯絡信箱</th>
                                 <th class="p-3 text-center">操作</th>
                             </tr>
@@ -108,7 +108,7 @@
                                               :class="item.match > 90 ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'"
                                               x-text="item.match + '%'"></span>
                                     </td>
-                                    <td class="p-3 text-gray-600" x-text="item.email"></td>
+                                    <td class="p-3 text-indigo-600 font-mono text-xs" x-text="item.email"></td>
                                     <td class="p-3 text-center space-x-2">
                                         <button @click="generateEmail(item)" class="bg-indigo-50 text-indigo-600 px-3 py-1 rounded hover:bg-indigo-100 text-xs font-medium">
                                             <i class="fa-solid fa-envelope-open-text"></i> 生成開發信
@@ -125,8 +125,8 @@
                 </div>
             </div>
 
-            <!-- AI 自動化開發信生成器 (Modal/區塊) -->
-            <div x-show="selectedLead" class="bg-white p-6 rounded-xl shadow-sm border border-indigo-100 bg-indigo-50/20 space-y-4" style="display: none;">
+            <!-- AI 自動化開發信生成器 -->
+            <div x-show="selectedLead" class="bg-white p-6 rounded-xl shadow-sm border border-indigo-100 bg-indigo-50/25 space-y-4" style="display: none;">
                 <div class="flex justify-between items-center">
                     <h3 class="font-semibold text-indigo-900 flex items-center gap-2">
                         <i class="fa-solid fa-robot text-indigo-600"></i> AI 智能開發信生成器 (對象：<span x-text="selectedLead?.name"></span>)
@@ -148,7 +148,7 @@
                     <button @click="copyEmail" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-300">
                         <i class="fa-solid fa-copy"></i> 複製內文
                     </button>
-                    <button @click="alert('信件已模擬發送至 CRM 佇列！')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">
+                    <button @click="alert('信件已成功模擬發送！')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">
                         <i class="fa-solid fa-paper-plane"></i> 確認發送並追蹤
                     </button>
                 </div>
@@ -157,11 +157,11 @@
         </div>
     </main>
 
-    <!-- 邏輯控制 Script -->
+    <!-- 邏輯控制 Script (純前端動態匹配引擎) -->
     <script>
         function appData() {
             return {
-                currentPlan: '專業版 (Pro)',
+                currentPlan: '單檔展示版 (Frontend Only)',
                 loading: false,
                 form: {
                     industry: '',
@@ -183,21 +183,46 @@
                     this.loading = true;
                     this.selectedLead = null;
 
-                    // 模擬後端 API 請求與 AI 搜尋延遲
+                    // 模擬前端動態解析與運算（根據輸入的產業與地區即時組裝符合情境的名單）
                     setTimeout(() => {
                         this.loading = false;
+                        const region = this.form.region || '全球目標市場';
+                        const ind = this.form.industry;
+                        const prod = this.form.product;
+
                         this.results = [
-                            { name: 'Apex Global Distribution GmbH', region: this.form.region || '德國', match: 95, email: 'contact@apex-global.de' },
-                            { name: 'Nordic Tech Solutions Ltd.', region: this.form.region || '瑞典', match: 88, email: 'partner@nordictech.se' },
-                            { name: 'Pacific Trade & Agency Corp.', region: this.form.region || '美國', match: 82, email: 'info@pacifictrade.us' },
-                            { name: 'SunRise Industrial Co.', region: this.form.region || '日本', match: 79, email: 'sales@sunrise-ind.co.jp' }
+                            { 
+                                name: `${region} Prime ${ind} Solutions Corp.`, 
+                                region: region, 
+                                match: 96, 
+                                email: `partnerships@${ind.toLowerCase().replace(/[^a-z0-9]/g, '')}prime.com` 
+                            },
+                            { 
+                                name: `Global ${prod.split(' ')[0]} Distribution Gmbh`, 
+                                region: region, 
+                                match: 90, 
+                                email: `contact@global${prod.toLowerCase().replace(/[^a-z0-9]/g, '')}.de` 
+                            },
+                            { 
+                                name: `Alpha ${ind} & Agency Network`, 
+                                region: region, 
+                                match: 84, 
+                                email: `sales@alpha-agency.net` 
+                            },
+                            { 
+                                name: `Vanguard ${region} Trading Ltd.`, 
+                                region: region, 
+                                match: 78, 
+                                email: `info@vanguard-${region.toLowerCase().replace(/[^a-z0-9]/g, '')}.com` 
+                            }
                         ];
-                    }, 1500);
+                    }, 1200);
                 },
                 generateEmail(lead) {
                     this.selectedLead = lead;
-                    this.emailDraft.subject = `Partnership Inquiry: Introducing innovative ${this.form.product} to ${lead.name}`;
-                    this.emailDraft.body = `Dear ${lead.name} Team,\n\nI hope this email finds you well.\n\nWe noticed your prominent position in the ${this.form.industry} sector in ${lead.region}. We are a leading manufacturer specializing in ${this.form.product}.\n\nGiven your strong distribution network, we are looking for a reliable partner to expand our market share. We believe our product can bring high value to your existing clients.\n\nWould you be open to a brief 10-minute introductory call next week?\n\nBest regards,\n[Your Name/Company]`;
+                    const goalText = this.form.goal === 'distributor' ? 'distribution partnership' : 'business cooperation';
+                    this.emailDraft.subject = `Strategic Inquiry: Introducing innovative ${this.form.product} to ${lead.name}`;
+                    this.emailDraft.body = `Dear ${lead.name} Team,\n\nI hope this email finds you well.\n\nWe have been following your impressive presence in the ${this.form.industry} sector in ${lead.region}. We are a specialized manufacturer of ${this.form.product}.\n\nGiven your extensive market reach, we are keen to explore a ${goalText} with your company. We believe our solution can add high value to your existing portfolio.\n\nWould you be available for a brief 10-minute introductory call next week?\n\nBest regards,\n[Your Name/Company]`;
                 },
                 copyEmail() {
                     navigator.clipboard.writeText(`Subject: ${this.emailDraft.subject}\n\n${this.emailDraft.body}`);
