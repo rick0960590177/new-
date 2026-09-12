@@ -3,313 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>咖啡生豆即時報價系統</title>
-    <style>
-        :root {
-            --market-dark: #1E293B;
-            --market-green: #10B981;
-            --market-card: #FFFFFF;
-            --bg-slate: #F8FAFC;
-            --border-color: #E2E8F0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-slate);
-            color: var(--market-dark);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: var(--market-dark);
-        }
-
-        .live-badge {
-            background-color: #DEF7EC;
-            color: #03543F;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--market-green);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
-        /* 報價表格樣式 (支援手機橫向捲動) */
-        .market-table-container {
-            background-color: var(--market-card);
-            border-radius: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            overflow-x: auto;
-            margin-bottom: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            min-width: 600px;
-        }
-
-        th, td {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: #F1F5F9;
-            font-size: 14px;
-            color: #475569;
-        }
-
-        td {
-            font-size: 15px;
-        }
-
-        .price-up {
-            color: var(--market-green);
-            font-weight: bold;
-        }
-
-        .price-down {
-            color: #EF4444;
-            font-weight: bold;
-        }
-
-        /* 採購計算機區塊 */
-        .calculator-card {
-            background-color: var(--market-card);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .calculator-card h3 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: var(--market-dark);
-        }
-
-        .calc-form-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        label {
-            font-size: 13px;
-            font-weight: bold;
-            color: #64748B;
-        }
-
-        select, input {
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        select:focus, input:focus {
-            border-color: #3B82F6;
-        }
-
-        .calc-result {
-            background-color: #F8FAFC;
-            padding: 20px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #1E293B;
-            line-height: 1.6;
-        }
-
-        .calc-result div {
-            margin-bottom: 5px;
-        }
-
-        .calc-result div:last-child {
-            margin-bottom: 0;
-        }
-    </style>
+    <title>B2B 智慧獲客與代理商媒合平台</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans" x-data="appData()">
 
-    <div class="container">
-        <header>
-            <h1>🌱 咖啡生豆即時報價與期貨行情</h1>
-            <div class="live-badge">
-                <div class="live-dot"></div>
-                市場即時連線中
+    <!-- 頂部導航列 -->
+    <header class="bg-indigo-600 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-bullseye text-2xl"></i>
+                <h1 class="text-xl font-bold">B2B Lead & Distributor Finder</h1>
             </div>
-        </header>
-
-        <!-- 生豆報價清單 -->
-        <div class="market-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>產區 / 品種</th>
-                        <th>等級 / 處理法</th>
-                        <th>每公斤美金 (USD/kg)</th>
-                        <th>24小時漲跌</th>
-                    </tr>
-                </thead>
-                <tbody id="marketTableBody">
-                    <!-- 動態載入資料 -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 批次採購計算機 -->
-        <div class="calculator-card">
-            <h3>🧮 生豆批次採購成本計算機</h3>
-            <div class="calc-form-group">
-                <div class="form-field">
-                    <label for="beanSelect">選擇生豆</label>
-                    <select id="beanSelect" onchange="calculateCost()">
-                        <!-- 動態載入選項 -->
-                    </select>
-                </div>
-                <div class="form-field">
-                    <label for="weightInput">採購數量 (公斤)</label>
-                    <input type="number" id="weightInput" value="60" min="1" oninput="calculateCost()">
-                </div>
-                <div class="form-field">
-                    <label for="exchangeRateTWD">美金兌台幣匯率 (TWD)</label>
-                    <input type="number" id="exchangeRateTWD" value="32.5" step="0.1" oninput="calculateCost()">
-                </div>
-                <div class="form-field">
-                    <label for="exchangeRateVND">美金兌越南盾匯率 (VND)</label>
-                    <input type="number" id="exchangeRateVND" value="25000" step="100" oninput="calculateCost()">
-                </div>
-            </div>
-            <div class="calc-result" id="totalResult">
-                <!-- 動態顯示計算結果 -->
+            <div class="text-sm bg-indigo-700 px-3 py-1 rounded-full">
+                <span x-text="currentPlan"></span> | <span class="text-green-300">系統運行中</span>
             </div>
         </div>
-    </div>
+    </header>
 
+    <!-- 主要內容區 -->
+    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- 左側：搜尋與參數設定 (1欄) -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-6">
+            <h2 class="text-lg font-semibold border-b pb-3 flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-indigo-600"></i> 1. 設定產品與獲客目標
+            </h2>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">目標產業 (Industry)</label>
+                <input type="text" x-model="form.industry" placeholder="例如：智慧醫療、電動車零組件、IoT" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">您的產品/服務 (Product)</label>
+                <input type="text" x-model="form.product" placeholder="例如：AI 遠端照護手環、車載充電樁" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">尋找目標類型 (Goal)</label>
+                <select x-model="form.goal" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <option value="distributor">尋找海外/本地代理商 (Distributor/Agent)</option>
+                    <option value="buyer">尋找終端企業買家 (B2B Direct Buyer)</option>
+                    <option value="oem">尋找策略代工合作 (OEM/ODM Partner)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">目標市場 / 國家 (Region)</label>
+                <input type="text" x-model="form.region" placeholder="例如：德國、美國、東南亞" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+
+            <button @click="startSearch" :disabled="loading" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium hover:bg-indigo-700 transition flex items-center justify-center gap-2 disabled:bg-gray-400">
+                <i class="fa-solid fa-wand-magic-sparkles" :class="{'fa-spin': loading}"></i>
+                <span x-text="loading ? 'AI 正在深度挖掘中...' : '開始搜尋與媒合'"></span>
+            </button>
+        </div>
+
+        <!-- 右側：搜尋結果與開發工具 (2欄) -->
+        <div class="lg:col-span-2 space-y-6">
+            
+            <!-- 結果列表區塊 -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold flex items-center gap-2">
+                        <i class="fa-solid fa-address-book text-indigo-600"></i> 2. 潛在名單與代理商列表 
+                        <span class="text-sm bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full" x-text="results.length + ' 筆'"></span>
+                    </h2>
+                    <button @click="exportCSV" class="text-sm text-indigo-600 hover:underline flex items-center gap-1">
+                        <i class="fa-solid fa-download"></i> 匯出名單 (CSV)
+                    </button>
+                </div>
+
+                <!-- 載入動畫 -->
+                <div x-show="loading" class="py-12 text-center text-gray-500 space-y-2">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-indigo-600"></i>
+                    <p>正在跨國資料庫與產業網站分析最適配的代理商...</p>
+                </div>
+
+                <!-- 名單表格 -->
+                <div x-show="!loading && results.length > 0" class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+                            <tr>
+                                <th class="p-3">公司名稱</th>
+                                <th class="p-3">國家/地區</th>
+                                <th class="p-3">產業匹配度</th>
+                                <th class="p-3">聯絡信箱</th>
+                                <th class="p-3 text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <template x-for="(item, index) in results" :key="index">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-3 font-medium text-gray-900" x-text="item.name"></td>
+                                    <td class="p-3 text-gray-600" x-text="item.region"></td>
+                                    <td class="p-3">
+                                        <span class="px-2 py-1 rounded text-xs font-semibold"
+                                              :class="item.match > 90 ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'"
+                                              x-text="item.match + '%'"></span>
+                                    </td>
+                                    <td class="p-3 text-gray-600" x-text="item.email"></td>
+                                    <td class="p-3 text-center space-x-2">
+                                        <button @click="generateEmail(item)" class="bg-indigo-50 text-indigo-600 px-3 py-1 rounded hover:bg-indigo-100 text-xs font-medium">
+                                            <i class="fa-solid fa-envelope-open-text"></i> 生成開發信
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div x-show="!loading && results.length === 0" class="py-12 text-center text-gray-400">
+                    尚無資料，請先於左側輸入產業與產品後點擊「開始搜尋與媒合」。
+                </div>
+            </div>
+
+            <!-- AI 自動化開發信生成器 (Modal/區塊) -->
+            <div x-show="selectedLead" class="bg-white p-6 rounded-xl shadow-sm border border-indigo-100 bg-indigo-50/20 space-y-4" style="display: none;">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-semibold text-indigo-900 flex items-center gap-2">
+                        <i class="fa-solid fa-robot text-indigo-600"></i> AI 智能開發信生成器 (對象：<span x-text="selectedLead?.name"></span>)
+                    </h3>
+                    <button @click="selectedLead = null" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">主旨 (Subject)</label>
+                    <input type="text" x-model="emailDraft.subject" class="w-full bg-white border rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">郵件內容 (Body)</label>
+                    <textarea x-model="emailDraft.body" rows="6" class="w-full bg-white border rounded-lg px-3 py-2 text-sm outline-none"></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button @click="copyEmail" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-300">
+                        <i class="fa-solid fa-copy"></i> 複製內文
+                    </button>
+                    <button @click="alert('信件已模擬發送至 CRM 佇列！')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">
+                        <i class="fa-solid fa-paper-plane"></i> 確認發送並追蹤
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 邏輯控制 Script -->
     <script>
-        // 咖啡生豆即時市場資料
-        let greenCoffeeData = [
-            { id: 1, name: "衣索比亞 耶加雪菲", grade: "G1 水洗", usdPrice: 9.80, change: "+1.2%" },
-            { id: 2, name: "哥倫比亞 薇拉", grade: "Supremo", usdPrice: 8.50, change: "-0.5%" },
-            { id: 3, name: "瓜地馬拉 薇薇特南果", grade: "SHB", usdPrice: 8.90, change: "+0.8%" },
-            { id: 4, name: "印尼 蘇門答臘 曼特寧", grade: "G1 三次手挑", usdPrice: 9.20, change: "+0.0%" },
-            { id: 5, name: "巴西 喜拉朵", grade: "NY2 17/18", usdPrice: 6.40, change: "-1.1%" },
-            { id: 6, name: "越南 大叻阿拉比卡", grade: "Grade 1 / 洗滌式", usdPrice: 6.80, change: "+2.1%" },
-            { id: 7, name: "越南 邦美蜀羅布斯塔", grade: "Screen 18 / 天然日曬", usdPrice: 4.20, change: "+1.5%" }
-        ];
+        function appData() {
+            return {
+                currentPlan: '專業版 (Pro)',
+                loading: false,
+                form: {
+                    industry: '',
+                    product: '',
+                    goal: 'distributor',
+                    region: ''
+                },
+                results: [],
+                selectedLead: null,
+                emailDraft: {
+                    subject: '',
+                    body: ''
+                },
+                startSearch() {
+                    if (!this.form.industry || !this.form.product) {
+                        alert('請至少填寫目標產業與產品名稱！');
+                        return;
+                    }
+                    this.loading = true;
+                    this.selectedLead = null;
 
-        const exchangeRateTWD = document.getElementById('exchangeRateTWD');
-        const exchangeRateVND = document.getElementById('exchangeRateVND');
-        const marketTableBody = document.getElementById('marketTableBody');
-        const beanSelect = document.getElementById('beanSelect');
-        const weightInput = document.getElementById('weightInput');
-        const totalResult = document.getElementById('totalResult');
-
-        // 渲染即時報價表格
-        function renderMarketTable() {
-            marketTableBody.innerHTML = "";
-
-            greenCoffeeData.forEach(bean => {
-                const changeClass = bean.change.startsWith('+') ? 'price-up' : (bean.change.startsWith('-') ? 'price-down' : '');
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${bean.name}</strong></td>
-                    <td>${bean.grade}</td>
-                    <td>$${bean.usdPrice.toFixed(2)}</td>
-                    <td class="${changeClass}">${bean.change}</td>
-                `;
-                marketTableBody.appendChild(row);
-            });
+                    // 模擬後端 API 請求與 AI 搜尋延遲
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.results = [
+                            { name: 'Apex Global Distribution GmbH', region: this.form.region || '德國', match: 95, email: 'contact@apex-global.de' },
+                            { name: 'Nordic Tech Solutions Ltd.', region: this.form.region || '瑞典', match: 88, email: 'partner@nordictech.se' },
+                            { name: 'Pacific Trade & Agency Corp.', region: this.form.region || '美國', match: 82, email: 'info@pacifictrade.us' },
+                            { name: 'SunRise Industrial Co.', region: this.form.region || '日本', match: 79, email: 'sales@sunrise-ind.co.jp' }
+                        ];
+                    }, 1500);
+                },
+                generateEmail(lead) {
+                    this.selectedLead = lead;
+                    this.emailDraft.subject = `Partnership Inquiry: Introducing innovative ${this.form.product} to ${lead.name}`;
+                    this.emailDraft.body = `Dear ${lead.name} Team,\n\nI hope this email finds you well.\n\nWe noticed your prominent position in the ${this.form.industry} sector in ${lead.region}. We are a leading manufacturer specializing in ${this.form.product}.\n\nGiven your strong distribution network, we are looking for a reliable partner to expand our market share. We believe our product can bring high value to your existing clients.\n\nWould you be open to a brief 10-minute introductory call next week?\n\nBest regards,\n[Your Name/Company]`;
+                },
+                copyEmail() {
+                    navigator.clipboard.writeText(`Subject: ${this.emailDraft.subject}\n\n${this.emailDraft.body}`);
+                    alert('開發信已成功複製到剪貼簿！');
+                },
+                exportCSV() {
+                    if (this.results.length === 0) {
+                        alert('沒有可匯出的資料！');
+                        return;
+                    }
+                    let csvContent = "data:text/csv;charset=utf-8,Company,Region,Match,Email\n";
+                    this.results.forEach(row => {
+                        csvContent += `${row.name},${row.region},${row.match}%,${row.email}\n`;
+                    });
+                    const encodedUri = encodeURI(csvContent);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", "b2b_leads_distribution.csv");
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
         }
-
-        // 渲染計算機下拉選單
-        function renderBeanSelect() {
-            beanSelect.innerHTML = "";
-            greenCoffeeData.forEach(bean => {
-                const option = document.createElement('option');
-                option.value = bean.usdPrice;
-                option.textContent = `${bean.name} (${bean.grade}) - $${bean.usdPrice.toFixed(2)} USD/kg`;
-                beanSelect.appendChild(option);
-            });
-            calculateCost();
-        }
-
-        // 計算採購成本（包含台幣與越南盾）
-        function calculateCost() {
-            const unitPriceUSD = parseFloat(beanSelect.value) || 0;
-            const weight = parseFloat(weightInput.value) || 0;
-            const rateTWD = parseFloat(exchangeRateTWD.value) || 32.5;
-            const rateVND = parseFloat(exchangeRateVND.value) || 25000;
-
-            const totalUSD = unitPriceUSD * weight;
-            const totalTWD = totalUSD * rateTWD;
-            const totalVND = totalUSD * rateVND;
-
-            totalResult.innerHTML = `
-                <div>預估總金額：</div>
-                <div style="color: #2563EB;">🇹🇼 NT$ ${totalTWD.toLocaleString('zh-TW', { maximumFractionDigits: 0 })} TWD</div>
-                <div style="color: #059669;">🇻🇳 ₫ ${totalVND.toLocaleString('vi-VN', { maximumFractionDigits: 0 })} VND</div>
-                <div style="font-size: 14px; color: #64748B; font-weight: normal; margin-top: 5px;">( 约 $${totalUSD.toFixed(2)} USD )</div>
-            `;
-        }
-
-        // 初始化執行
-        function initApp() {
-            renderMarketTable();
-            renderBeanSelect();
-        }
-
-        // 監聽匯率變動即時計算
-        exchangeRateTWD.addEventListener('input', calculateCost);
-        exchangeRateVND.addEventListener('input', calculateCost);
-
-        initApp();
     </script>
 </body>
 </html>
