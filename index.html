@@ -3,100 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B2B 潛在客戶自動開發與分析工具</title>
-    <!-- 引入 Tailwind CSS 確保介面簡潔美觀 -->
+    <title>全自動獲客系統 - AI 跨平台行銷與引流儀表板</title>
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-900 text-gray-100 font-sans">
 
-    <div class="max-w-5xl mx-auto p-6">
-        <!-- 頂部標題區 -->
-        <header class="bg-white shadow-sm rounded-xl p-6 mb-6 border border-gray-100">
-            <h1 class="text-2xl font-bold text-gray-900 mb-2">🎯 B2B 潛在客戶自動開發與分析工具</h1>
-            <p class="text-gray-600 text-sm">運用 Google Gemini API 分析目標市場、定位潛在買家，並自動生成精準的開發策略與郵件。</p>
+    <div class="max-w-6xl mx-auto p-6">
+        <!-- 頂部宣傳標語區 -->
+        <header class="bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 shadow-xl rounded-2xl p-8 mb-8 border border-purple-500/30 text-center relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">
+                🚀 1台電腦 = 1000個手機 | 1套系統 = 10個人
+            </h1>
+            <p class="text-purple-200 text-base md:text-lg font-medium">全自動獲客系統 · 讓獲客更簡單，全球客戶自動找到你</p>
+            
+            <!-- 支援平台列 -->
+            <div class="flex flex-wrap justify-center items-center gap-6 mt-6 pt-6 border-t border-purple-700/50">
+                <span class="text-xs uppercase tracking-widest text-purple-300 font-semibold">支援全渠道覆蓋：</span>
+                <span class="bg-blue-600/30 text-blue-300 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/30">Facebook</span>
+                <span class="bg-pink-600/30 text-pink-300 px-3 py-1 rounded-full text-sm font-medium border border-pink-500/30">Instagram</span>
+                <span class="bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full text-sm font-medium border border-gray-600/30">TikTok</span>
+                <span class="bg-green-600/30 text-green-300 px-3 py-1 rounded-full text-sm font-medium border border-green-500/30">WhatsApp</span>
+                <span class="bg-amber-600/30 text-amber-300 px-3 py-1 rounded-full text-sm font-medium border border-amber-500/30">Google</span>
+            </div>
         </header>
 
-        <!-- 設定與輸入區 -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <!-- 左側控制面板 -->
-            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100 md:col-span-1">
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Gemini API Key</label>
-                    <input type="password" id="apiKey" placeholder="請輸入您的 API Key" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <!-- 主操作介面 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 左側：系統控制面板 -->
+            <div class="bg-gray-800/80 backdrop-blur shadow-xl rounded-2xl p-6 border border-gray-700/60 lg:col-span-1 space-y-5">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span>⚙️</span> 獲客任務配置中心
+                </h2>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Gemini API Key</label>
+                    <input type="password" id="apiKey" placeholder="請輸入您的 Gemini API Key" class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">目標產業 / 產品 / 服務</label>
-                    <input type="text" id="targetIndustry" placeholder="例：浸泡式咖啡包 / 工業設備" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">目標推廣業務 / 產品</label>
+                    <input type="text" id="targetBusiness" placeholder="例：跨境電商代營運服務" class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">目標市場 / 地區</label>
-                    <input type="text" id="targetMarket" placeholder="例：歐洲經銷商、台灣辦公室福委會" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">主要引流平台</label>
+                    <select id="targetPlatform" class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="全平台全渠道 (Omnichannel)">全平台全渠道 (Omnichannel)</option>
+                        <option value="Facebook / Instagram 社群私信">Facebook / Instagram 社群私信</option>
+                        <option value="TikTok 短影音評論與主頁導流">TikTok 短影音評論與主頁導流</option>
+                        <option value="WhatsApp 批量觸達與群發">WhatsApp 批量觸達與群發</option>
+                        <option value="Google 關鍵字與地圖潛客">Google 關鍵字與地圖潛客</option>
+                    </select>
                 </div>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">開發目的 / 需求</label>
-                    <textarea id="targetGoal" rows="3" placeholder="例：尋找B2B批發買家、尋找海外代理商" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">自動化運作設定</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-900 p-3 rounded-xl border border-gray-700 text-center">
+                            <span class="block text-xs text-gray-400">採集模式</span>
+                            <span class="text-sm font-bold text-purple-400">AI 多維度精準採集</span>
+                        </div>
+                        <div class="bg-gray-900 p-3 rounded-xl border border-gray-700 text-center">
+                            <span class="block text-xs text-gray-400">防封號防護</span>
+                            <span class="text-sm font-bold text-green-400">多帳號安全隔離</span>
+                        </div>
+                    </div>
                 </div>
 
-                <button onclick="generateLeadsStrategy()" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition duration-200">
-                    開始分析與生成策略
+                <button onclick="runAutoLeadSystem()" id="submitBtn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl text-sm transition shadow-lg shadow-purple-600/30">
+                    🔥 啟動 AI 全自動獲客與腳本生成
                 </button>
             </div>
 
-            <!-- 右側結果展示區 -->
-            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100 md:col-span-2 flex flex-col">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-100">分析結果與開發策略</h2>
-                <div id="loading" class="hidden flex-1 flex flex-col items-center justify-center text-gray-500 py-12">
-                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-3"></div>
-                    <p class="text-sm">AI 正在深度分析市場與潛客切入點，請稍候...</p>
+            <!-- 右側：AI 分析與執行結果 -->
+            <div class="bg-gray-800/80 backdrop-blur shadow-xl rounded-2xl p-6 border border-gray-700/60 lg:col-span-2 flex flex-col">
+                <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-700">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span>📊</span> AI 獲客戰略與即時線索儀表板
+                    </h2>
+                    <span id="systemStatus" class="px-2.5 py-1 bg-gray-700 text-gray-300 rounded-full text-xs font-medium">系統閒置中</span>
                 </div>
-                <div id="resultContent" class="flex-1 overflow-y-auto text-sm text-gray-700 leading-relaxed space-y-4">
-                    <p class="text-gray-400 italic">尚未執行分析。請在左側填入相關資訊並點擊「開始分析與生成策略」。</p>
+
+                <div id="loading" class="hidden flex-1 flex flex-col items-center justify-center text-gray-400 py-16">
+                    <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-500 mb-4"></div>
+                    <p class="text-sm animate-pulse">AI 機器人正在全球多平台採集數據、模擬觸達中...</p>
+                </div>
+
+                <div id="resultContent" class="flex-1 overflow-y-auto text-sm text-gray-300 leading-relaxed space-y-4 max-h-[600px] pr-2">
+                    <div class="text-center py-16 text-gray-500 italic">
+                        尚未啟動系統。請於左側設定您的推廣業務與目標平台，並點擊按鈕開始運行。
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        async function generateLeadsStrategy() {
+        async function runAutoLeadSystem() {
             const apiKey = document.getElementById('apiKey').value.trim();
-            const industry = document.getElementById('targetIndustry').value.trim();
-            const market = document.getElementById('targetMarket').value.trim();
-            const goal = document.getElementById('targetGoal').value.trim();
+            const business = document.getElementById('targetBusiness').value.trim();
+            const platform = document.getElementById('targetPlatform').value;
             const resultDiv = document.getElementById('resultContent');
             const loadingDiv = document.getElementById('loading');
             const submitBtn = document.getElementById('submitBtn');
+            const statusSpan = document.getElementById('systemStatus');
 
             if (!apiKey) {
-                alert('請先輸入 Gemini API Key！');
+                alert('請先輸入您的 Gemini API Key！');
                 return;
             }
-            if (!industry || !market) {
-                alert('請填寫目標產業與目標市場！');
+            if (!business) {
+                alert('請填寫目標推廣業務或產品！');
                 return;
             }
 
-            // 顯示 Loading
+            // 切換載入狀態
             loadingDiv.classList.remove('hidden');
             resultDiv.innerHTML = '';
             submitBtn.disabled = true;
+            statusSpan.className = 'px-2.5 py-1 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-full text-xs font-medium animate-pulse';
+            statusSpan.innerText = '系統運行中 (AI 採集與觸達)';
 
             const prompt = `
-你是一個專業的 B2B 商業開發與市場分析專家。請針對以下需求，為我產出完整的潛在客戶開發計畫：
+你是一個頂級的跨平台自動化獲客系統（AI 營銷黑科技機器人）。針對以下業務需求，請為我產出一套完整的自動化引流、精準採集與轉換方案：
 
-- 目標產業/產品：${industry}
-- 目標市場/地區：${market}
-- 開發目的：${goal || '尋找優質 B2B 買家與經銷商'}
+- 推廣業務/產品：${business}
+- 主力引流平台：${platform}
 
-請提供以下結構化內容：
-1. **潛在買家畫像 (Buyer Persona)**：精準點出這些潛客通常是哪些類型的公司、職稱與決策者。
-2. **潛在客戶聚集管道**：他們平常在哪裡出沒？（例如：特定的展會、B2B批發平台、社群群組、垂直網站等）。
-3. **搜尋關鍵字策略**：提供可用於 Google 或 LinkedIn 搜尋的關鍵字組合（包含中英文/當地語言建議）。
-4. **切入痛點與價值主張**：我們該如何用一句話吸引他們的注意？
-5. **高轉換 B2B 開發信範本**：一封可以直接發送給潛在客戶的專業郵件草稿。
+請以專業、結構化的方式提供以下內容：
+1. **全球潛在客戶精準採集策略**：在該平台上，我們該如何設定條件（關鍵字、標籤、社群群組）以自動採集高價值線索？
+2. **AI 自動觸達與引流腳本**：提供 2 組高回覆率的私訊／評論引流自動化對話腳本。
+3. **高效率轉化漏斗規劃**：如何透過系統自動化跟進，提升詢盤與成交率？
+4. **帳號安全與防封號實操建議**：多帳號輪流操作與頻率控制的注意事項。
 `;
 
             try {
@@ -119,11 +160,15 @@
                 }
 
                 const textResult = data.candidates[0].content.parts[0].text;
-                // 使用 marked 解析 Markdown 格式
                 resultDiv.innerHTML = marked.parse(textResult);
 
+                statusSpan.className = 'px-2.5 py-1 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-xs font-medium';
+                statusSpan.innerText = '系統運作正常 - 數據同步完成';
+
             } catch (error) {
-                resultDiv.innerHTML = `<div class="p-4 bg-red-50 text-red-700 rounded-lg">發生錯誤：${error.message}</div>`;
+                resultDiv.innerHTML = `<div class="p-4 bg-red-900/40 border border-red-500/50 text-red-300 rounded-xl">系統異常錯誤：${error.message}</div>`;
+                statusSpan.className = 'px-2.5 py-1 bg-red-500/20 text-red-400 border border-red-500/30 rounded-full text-xs font-medium';
+                statusSpan.innerText = '系統異常停止';
             } finally {
                 loadingDiv.classList.add('hidden');
                 submitBtn.disabled = false;
