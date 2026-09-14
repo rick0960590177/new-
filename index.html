@@ -3,339 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 跨境客戶開發與開發信生成器</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
-            --border-color: #334155;
-            --success-color: #10b981;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 5px;
-            font-size: 1.8rem;
-            color: #38bdf8;
-        }
-
-        p.subtitle {
-            text-align: center;
-            color: #94a3b8;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-        }
-
-        .step-section {
-            background-color: #0f172a;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        h3 {
-            margin-top: 0;
-            color: #38bdf8;
-            font-size: 1.1rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            background-color: #1e293b;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-color);
-            font-size: 0.95rem;
-            box-sizing: border-box;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-
-        .row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .row .form-group {
-            flex: 1;
-        }
-
-        button {
-            padding: 12px 20px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .output-box {
-            background-color: #1e293b;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 15px;
-            margin-top: 10px;
-            white-space: pre-wrap;
-            font-family: monospace;
-            font-size: 0.9rem;
-            color: #e2e8f0;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .tab-btn {
-            background-color: #1e293b;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            width: auto;
-        }
-
-        .tab-btn.active {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-
-        .script-content {
-            display: none;
-        }
-
-        .script-content.active {
-            display: block;
-        }
-    </style>
+    <title>B2B 潛在客戶自動開發與分析工具</title>
+    <!-- 引入 Tailwind CSS 確保介面簡潔美觀 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-    <div class="container">
-        <h1>AI 跨境客戶開發助理</h1>
-        <p class="subtitle">四步驟搞定外貿市場分析、名單搜尋條件與高轉換英文開發信生成</p>
+    <div class="max-w-5xl mx-auto p-6">
+        <!-- 頂部標題區 -->
+        <header class="bg-white shadow-sm rounded-xl p-6 mb-6 border border-gray-100">
+            <h1 class="text-2xl font-bold text-gray-900 mb-2">🎯 B2B 潛在客戶自動開發與分析工具</h1>
+            <p class="text-gray-600 text-sm">運用 Google Gemini API 分析目標市場、定位潛在買家，並自動生成精準的開發策略與郵件。</p>
+        </header>
 
-        <!-- 步驟一：定義市場與產品 -->
-        <div class="step-section">
-            <h3>步驟一：定義產品與目標市場</h3>
-            <div class="row">
-                <div class="form-group">
-                    <label for="productName">你的產品名稱</label>
-                    <input type="text" id="productName" value="浸泡式咖啡包 / 環保包裝材料">
+        <!-- 設定與輸入區 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <!-- 左側控制面板 -->
+            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100 md:col-span-1">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Gemini API Key</label>
+                    <input type="password" id="apiKey" placeholder="請輸入您的 API Key" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-                <div class="form-group">
-                    <label for="targetMarket">目標國家 / 區域</label>
-                    <input type="text" id="targetMarket" value="德國 (Germany) / 美國 (USA)">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="productAdvantage">核心競爭優勢</label>
-                <input type="text" id="productAdvantage" value="成本降低25%、符合歐盟環保規範、15天快速交貨">
-            </div>
-            <button onclick="runStepOne()">1. 分析買家畫像與痛點</button>
-            <div id="stepOneOutput" class="output-box" style="display:none;"></div>
-        </div>
 
-        <!-- 步驟二：Apollo.io 篩選設定 -->
-        <div class="step-section">
-            <h3>步驟二：Apollo.io 潛在客戶搜尋設定</h3>
-            <div class="row">
-                <div class="form-group">
-                    <label for="searchKeyword">產業關鍵字 (Keywords)</label>
-                    <input type="text" id="searchKeyword" value="Coffee Roaster / Packaging Supplier">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">目標產業 / 產品 / 服務</label>
+                    <input type="text" id="targetIndustry" placeholder="例：浸泡式咖啡包 / 工業設備" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-                <div class="form-group">
-                    <label for="decisionMaker">決策者職稱 (Job Titles)</label>
-                    <input type="text" id="decisionMaker" value="Procurement Director, Supply Chain Manager">
-                </div>
-            </div>
-            <button onclick="runStepTwo()">2. 生成名單搜尋策略與模擬</button>
-            <div id="stepTwoOutput" class="output-box" style="display:none;"></div>
-        </div>
 
-        <!-- 步驟三：生成英文開發信 -->
-        <div class="step-section">
-            <h3>步驟三：生成 3 種切入點的英文開發信</h3>
-            <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 0;">點擊下方標籤切換不同策略的開發信範本：</p>
-            
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('A', event)">A. 痛點切入型</button>
-                <button class="tab-btn" onclick="switchTab('B', event)">B. 法規/趨勢型</button>
-                <button class="tab-btn" onclick="switchTab('C', event)">C. 同業案例型</button>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">目標市場 / 地區</label>
+                    <input type="text" id="targetMarket" placeholder="例：歐洲經銷商、台灣辦公室福委會" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">開發目的 / 需求</label>
+                    <textarea id="targetGoal" rows="3" placeholder="例：尋找B2B批發買家、尋找海外代理商" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+
+                <button onclick="generateLeadsStrategy()" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition duration-200">
+                    開始分析與生成策略
+                </button>
             </div>
 
-            <div id="scriptA" class="script-content active">
-                <div class="output-box" id="emailA">點擊上方按鈕或執行步驟一後自動載入...</div>
-            </div>
-            <div id="scriptB" class="script-content">
-                <div class="output-box" id="emailB">載入中...</div>
-            </div>
-            <div id="scriptC" class="script-content">
-                <div class="output-box" id="emailC">載入中...</div>
+            <!-- 右側結果展示區 -->
+            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100 md:col-span-2 flex flex-col">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-100">分析結果與開發策略</h2>
+                <div id="loading" class="hidden flex-1 flex flex-col items-center justify-center text-gray-500 py-12">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-3"></div>
+                    <p class="text-sm">AI 正在深度分析市場與潛客切入點，請稍候...</p>
+                </div>
+                <div id="resultContent" class="flex-1 overflow-y-auto text-sm text-gray-700 leading-relaxed space-y-4">
+                    <p class="text-gray-400 italic">尚未執行分析。請在左側填入相關資訊並點擊「開始分析與生成策略」。</p>
+                </div>
             </div>
         </div>
-
-        <!-- 步驟四：覆盤與優化 -->
-        <div class="step-section">
-            <h3>步驟四：AI 數據覆盤與回覆優化</h3>
-            <div class="form-group">
-                <label for="feedbackData">客戶實際反應或回信內容 (選填)</label>
-                <textarea id="feedbackData" rows="2" placeholder="例如：客戶回信說價格還可以，但擔心海外運輸交期太久不穩定..."></textarea>
-            </div>
-            <button onclick="runStepFour()">4. 讓 AI 優化信件腳本</button>
-            <div id="stepFourOutput" class="output-box" style="display:none;"></div>
-        </div>
-
     </div>
 
     <script>
-        function runStepOne() {
-            const product = document.getElementById('productName').value;
-            const market = document.getElementById('targetMarket').value;
-            const adv = document.getElementById('productAdvantage').value;
-            
-            const output = document.getElementById('stepOneOutput');
-            output.style.display = 'block';
-            output.innerText = `【AI 市場分析結果】\n` +
-                `- 產品：${product}\n` +
-                `- 目標市場：${market}\n` +
-                `- 優勢：${adv}\n\n` +
-                `1. 潛在買家畫像：當地中小型品牌商、批發通路採購總監。\n` +
-                `2. 核心痛點：供應鏈不穩定、現有供應商交期過長、面臨嚴格環保與成本雙重壓力。\n` +
-                `3. 篩選共識：買家極度看重「品質穩定性」與「合規證明文件」。`;
-        }
+        async function generateLeadsStrategy() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const industry = document.getElementById('targetIndustry').value.trim();
+            const market = document.getElementById('targetMarket').value.trim();
+            const goal = document.getElementById('targetGoal').value.trim();
+            const resultDiv = document.getElementById('resultContent');
+            const loadingDiv = document.getElementById('loading');
+            const submitBtn = document.getElementById('submitBtn');
 
-        function runStepTwo() {
-            const keyword = document.getElementById('searchKeyword').value;
-            const title = document.getElementById('decisionMaker').value;
-            
-            const output = document.getElementById('stepTwoOutput');
-            output.style.display = 'block';
-            output.innerText = `【Apollo.io 搜尋參數建議】\n` +
-                `- Location: Germany / United States\n` +
-                `- Industry Keywords: ${keyword}\n` +
-                `- Job Titles: ${title}\n` +
-                `- 預計產出：已成功模擬篩選出 50 筆符合條件的企業決策者清單，建議匯出為 CSV 檔準備進行分批發送。`;
-        }
+            if (!apiKey) {
+                alert('請先輸入 Gemini API Key！');
+                return;
+            }
+            if (!industry || !market) {
+                alert('請填寫目標產業與目標市場！');
+                return;
+            }
 
-        function switchTab(type, event) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.script-content').forEach(content => content.classList.remove('active'));
-            
-            event.currentTarget.classList.add('active');
-            document.getElementById('script' + type).classList.add('active');
-            
-            // 動態帶入範本內容
-            const product = document.getElementById('productName').value;
-            
-            if (type === 'A') {
-                document.getElementById('emailA').innerText = 
-                    `Subject: Quick question regarding your supply chain at [Company Name]\n\n` +
-                    `Hi [First Name],\n\n` +
-                    `I noticed [Company Name] has been expanding its portfolio in the market. Many procurement leaders I speak with are currently struggling with rising material costs and unstable lead times.\n\n` +
-                    `We help companies like yours source ${product} with a 25% reduction in procurement costs while maintaining strict quality standards and a 15-day delivery window.\n\n` +
-                    `Are you open to reviewing a quick 2-page spec sheet this week?\n\n` +
-                    `Best regards,\n[Your Name]`;
-            } else if (type === 'B') {
-                document.getElementById('emailB').innerText = 
-                    `Subject: Meeting upcoming EU/US regulations for [Company Name]\n\n` +
-                    `Hi [First Name],\n\n` +
-                    `With the latest regulatory shifts in the region, ensuring full compliance for ${product} has become a top priority for procurement teams.\n\n` +
-                    `Our solutions are 100% certified and designed to help you stay ahead of compliance while optimizing your supply chain expenses.\n\n` +
-                    `Would you be available for a brief 10-minute intro call next Tuesday?\n\n` +
-                    `Best regards,\n[Your Name]`;
-            } else if (type === 'C') {
-                document.getElementById('emailC').innerText = 
-                    `Subject: How a peer in your industry cut procurement costs by 25%\n\n` +
-                    `Hi [First Name],\n\n` +
-                    `We recently partnered with a leading brand in your sector to streamline their ${product} supply chain, helping them achieve a 25% cost reduction without sacrificing quality.\n\n` +
-                    `I’d love to share a brief case study showing how we achieved this. Would you be interested in taking a look?\n\n` +
-                    `Best regards,\n[Your Name]`;
+            // 顯示 Loading
+            loadingDiv.classList.remove('hidden');
+            resultDiv.innerHTML = '';
+            submitBtn.disabled = true;
+
+            const prompt = `
+你是一個專業的 B2B 商業開發與市場分析專家。請針對以下需求，為我產出完整的潛在客戶開發計畫：
+
+- 目標產業/產品：${industry}
+- 目標市場/地區：${market}
+- 開發目的：${goal || '尋找優質 B2B 買家與經銷商'}
+
+請提供以下結構化內容：
+1. **潛在買家畫像 (Buyer Persona)**：精準點出這些潛客通常是哪些類型的公司、職稱與決策者。
+2. **潛在客戶聚集管道**：他們平常在哪裡出沒？（例如：特定的展會、B2B批發平台、社群群組、垂直網站等）。
+3. **搜尋關鍵字策略**：提供可用於 Google 或 LinkedIn 搜尋的關鍵字組合（包含中英文/當地語言建議）。
+4. **切入痛點與價值主張**：我們該如何用一句話吸引他們的注意？
+5. **高轉換 B2B 開發信範本**：一封可以直接發送給潛在客戶的專業郵件草稿。
+`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: prompt }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message || 'API 呼叫失敗');
+                }
+
+                const textResult = data.candidates[0].content.parts[0].text;
+                // 使用 marked 解析 Markdown 格式
+                resultDiv.innerHTML = marked.parse(textResult);
+
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="p-4 bg-red-50 text-red-700 rounded-lg">發生錯誤：${error.message}</div>`;
+            } finally {
+                loadingDiv.classList.add('hidden');
+                submitBtn.disabled = false;
             }
         }
-
-        function runStepFour() {
-            const feedback = document.getElementById('feedbackData').value;
-            const output = document.getElementById('stepFourOutput');
-            output.style.display = 'block';
-            
-            if (!feedback) {
-                output.innerText = `【AI 優化建議】\n目前尚未輸入具體反饋。建議在發送第一輪 50 封信後，將客戶回信或未回信的主因填入上方，AI 將自動調整信件語氣與切入點。`;
-            } else {
-                output.innerText = `【AI 覆盤與腳本優化結果】\n` +
-                    `針對反饋：「${feedback}」\n\n` +
-                    `修改建議：\n` +
-                    `1. 在開發信中直接加入「保證準時交貨」或「提供物流保險/本地倉備貨」的承諾。\n` +
-                    `2. 修改後的結語範例：\n` +
-                    `"We fully understand your concerns regarding shipping lead times. That’s why we offer a guaranteed 15-day delivery window backed by reliable logistics partners. Open to a quick chat?"`;
-            }
-        }
-
-        // 初始化載入第一封信
-        window.onload = function() {
-            document.getElementById('emailA').innerText = 
-                `Subject: Quick question regarding your supply chain at [Company Name]\n\n` +
-                `Hi [First Name],\n\n` +
-                `I noticed [Company Name] has been expanding its portfolio. Many procurement leaders I speak with are currently struggling with rising material costs and unstable lead times.\n\n` +
-                `We help companies like yours source products with a 25% reduction in procurement costs while maintaining strict quality standards and a 15-day delivery window.\n\n` +
-                `Are you open to reviewing a quick 2-page spec sheet this week?\n\n` +
-                `Best regards,\n[Your Name]`;
-        };
     </script>
-
 </body>
 </html>
