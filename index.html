@@ -1,179 +1,727 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全自動獲客系統 - AI 跨平台行銷與引流儀表板</title>
-    <!-- 引入 Tailwind CSS -->
+    <title>極簡不妥協：職人級浸泡式咖啡包 | B2C 個人品味 & B2B 企業採購</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf8f6',
+                            100: '#f9eee9',
+                            500: '#c27803',
+                            600: '#b45309',
+                            700: '#92400e',
+                            900: '#78350f',
+                        },
+                        coffee: {
+                            light: '#fbf7f4',
+                            DEFAULT: '#8b5a2b',
+                            dark: '#3d2314',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
+<body class="bg-stone-550 text-slate-800 antialiased font-sans">
 
-    <div class="max-w-6xl mx-auto p-6">
-        <!-- 頂部宣傳標語區 -->
-        <header class="bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 shadow-xl rounded-2xl p-8 mb-8 border border-purple-500/30 text-center relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">
-                🚀 1台電腦 = 1000個手機 | 1套系統 = 10個人
-            </h1>
-            <p class="text-purple-200 text-base md:text-lg font-medium">全自動獲客系統 · 讓獲客更簡單，全球客戶自動找到你</p>
-            
-            <!-- 支援平台列 -->
-            <div class="flex flex-wrap justify-center items-center gap-6 mt-6 pt-6 border-t border-purple-700/50">
-                <span class="text-xs uppercase tracking-widest text-purple-300 font-semibold">支援全渠道覆蓋：</span>
-                <span class="bg-blue-600/30 text-blue-300 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/30">Facebook</span>
-                <span class="bg-pink-600/30 text-pink-300 px-3 py-1 rounded-full text-sm font-medium border border-pink-500/30">Instagram</span>
-                <span class="bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full text-sm font-medium border border-gray-600/30">TikTok</span>
-                <span class="bg-green-600/30 text-green-300 px-3 py-1 rounded-full text-sm font-medium border border-green-500/30">WhatsApp</span>
-                <span class="bg-amber-600/30 text-amber-300 px-3 py-1 rounded-full text-sm font-medium border border-amber-500/30">Google</span>
+    <!-- 導覽列 -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-700 to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-amber-600/20">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="text-xl font-extrabold bg-gradient-to-r from-stone-900 to-amber-900 bg-clip-text text-transparent">BrewCraft 職人浸泡式咖啡</span>
             </div>
-        </header>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#painpoints" class="hover:text-amber-700 transition">分眾需求</a>
+                <a href="#features" class="hover:text-amber-700 transition">核心優勢</a>
+                <a href="#b2c-section" class="hover:text-amber-700 transition">個人選購 (B2C)</a>
+                <a href="#b2b-section" class="hover:text-amber-700 transition font-bold text-amber-800">企業/福委專區 (B2B)</a>
+                <a href="#faq" class="hover:text-amber-700 transition">常見問題</a>
+            </nav>
 
-        <!-- 主操作介面 -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- 左側：系統控制面板 -->
-            <div class="bg-gray-800/80 backdrop-blur shadow-xl rounded-2xl p-6 border border-gray-700/60 lg:col-span-1 space-y-5">
-                <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                    <span>⚙️</span> 獲客任務配置中心
-                </h2>
-
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Gemini API Key</label>
-                    <input type="password" id="apiKey" placeholder="請輸入您的 Gemini API Key" class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">目標推廣業務 / 產品</label>
-                    <input type="text" id="targetBusiness" placeholder="例：跨境電商代營運服務" class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">主要引流平台</label>
-                    <select id="targetPlatform" class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        <option value="全平台全渠道 (Omnichannel)">全平台全渠道 (Omnichannel)</option>
-                        <option value="Facebook / Instagram 社群私信">Facebook / Instagram 社群私信</option>
-                        <option value="TikTok 短影音評論與主頁導流">TikTok 短影音評論與主頁導流</option>
-                        <option value="WhatsApp 批量觸達與群發">WhatsApp 批量觸達與群發</option>
-                        <option value="Google 關鍵字與地圖潛客">Google 關鍵字與地圖潛客</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">自動化運作設定</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-gray-900 p-3 rounded-xl border border-gray-700 text-center">
-                            <span class="block text-xs text-gray-400">採集模式</span>
-                            <span class="text-sm font-bold text-purple-400">AI 多維度精準採集</span>
-                        </div>
-                        <div class="bg-gray-900 p-3 rounded-xl border border-gray-700 text-center">
-                            <span class="block text-xs text-gray-400">防封號防護</span>
-                            <span class="text-sm font-bold text-green-400">多帳號安全隔離</span>
-                        </div>
-                    </div>
-                </div>
-
-                <button onclick="runAutoLeadSystem()" id="submitBtn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl text-sm transition shadow-lg shadow-purple-600/30">
-                    🔥 啟動 AI 全自動獲客與腳本生成
+            <div class="flex items-center space-x-3">
+                <a href="#b2c-section" class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-semibold text-xs transition">
+                    個人搶購
+                </a>
+                <a href="#b2b-section" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-semibold text-xs shadow-md shadow-amber-700/20 transition">
+                    企業專人詢價
+                </a>
+                <button id="mobileMenuBtn" class="md:hidden text-slate-700 focus:outline-none p-2">
+                    <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
+        </div>
 
-            <!-- 右側：AI 分析與執行結果 -->
-            <div class="bg-gray-800/80 backdrop-blur shadow-xl rounded-2xl p-6 border border-gray-700/60 lg:col-span-2 flex flex-col">
-                <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-700">
-                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                        <span>📊</span> AI 獲客戰略與即時線索儀表板
-                    </h2>
-                    <span id="systemStatus" class="px-2.5 py-1 bg-gray-700 text-gray-300 rounded-full text-xs font-medium">系統閒置中</span>
+        <!-- 行動版選單 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-stone-200 px-6 py-4 space-y-3">
+            <a href="#painpoints" class="block text-slate-600 font-medium py-1">分眾需求</a>
+            <a href="#features" class="block text-slate-600 font-medium py-1">核心優勢</a>
+            <a href="#b2c-section" class="block text-slate-600 font-medium py-1">個人選購 (B2C)</a>
+            <a href="#b2b-section" class="block text-amber-800 font-bold py-1">企業/福委專區 (B2B)</a>
+            <a href="#faq" class="block text-slate-600 font-medium py-1">常見問題</a>
+        </div>
+    </header>
+
+    <!-- 區塊一：首屏（Above the Fold）—— 雙軌導航定位 -->
+    <section class="relative pt-16 pb-28 overflow-hidden bg-gradient-to-b from-stone-900 via-amber-950 to-stone-900 text-white">
+        <!-- 背景裝飾光暈 -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-600/15 rounded-full blur-[140px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-amber-200 text-xs sm:text-sm font-medium mb-8 backdrop-blur-md">
+                <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span>SCA 認證烘豆師監製 • 兼顧居家質感與企業辦公高效率</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight">
+                極簡不妥協：<span class="bg-gradient-to-r from-amber-200 via-orange-200 to-amber-400 bg-clip-text text-transparent">職人級浸泡式咖啡包</span>
+            </h1>
+
+            <p class="mt-6 text-lg sm:text-xl text-stone-300 max-w-2xl mx-auto font-light leading-relaxed">
+                無需專業器具，3分鐘還原手沖口感。無論是個人日常品味，或企業辦公補給與禮品採購，都能輕鬆滿足。
+            </p>
+
+            <!-- 雙軌行動呼籲 (Dual CTAs) -->
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-5">
+                <a href="#b2c-section" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-base shadow-xl shadow-amber-600/30 transition transform hover:-translate-y-1 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-mug-saucer"></i>
+                    <span>個人 / 家用 立即選購</span>
+                </a>
+                <a href="#b2b-section" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-base border border-white/20 transition flex items-center justify-center space-x-2 backdrop-blur-md">
+                    <i class="fa-solid fa-building"></i>
+                    <span>企業團購 / B2B 專區詢價</span>
+                </a>
+            </div>
+
+            <!-- 雙情境標示 -->
+            <div class="mt-16 pt-10 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left bg-white/5 p-6 rounded-3xl backdrop-blur-sm border border-white/10">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl flex-shrink-0">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-white text-base">居家質感生活</div>
+                        <p class="text-xs text-stone-300 mt-1">早晨起床不需手忙腳亂磨豆，一杯熱水靜置 3 分鐘，解鎖精品花香與果酸風味。</p>
+                    </div>
                 </div>
-
-                <div id="loading" class="hidden flex-1 flex flex-col items-center justify-center text-gray-400 py-16">
-                    <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-500 mb-4"></div>
-                    <p class="text-sm animate-pulse">AI 機器人正在全球多平台採集數據、模擬觸達中...</p>
-                </div>
-
-                <div id="resultContent" class="flex-1 overflow-y-auto text-sm text-gray-300 leading-relaxed space-y-4 max-h-[600px] pr-2">
-                    <div class="text-center py-16 text-gray-500 italic">
-                        尚未啟動系統。請於左側設定您的推廣業務與目標平台，並點擊按鈕開始運行。
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl flex-shrink-0">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-white text-base">質感辦公室與商務會議</div>
+                        <p class="text-xs text-stone-300 mt-1">免維護高價咖啡機，零殘渣好清理，全面提升茶水間福利與企業接待質感。</p>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- 區塊二：痛點共鳴（分眾對話） -->
+    <section id="painpoints" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-amber-700 font-bold text-sm tracking-widest uppercase">分眾對話</span>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    不論是忙碌的你，或是尋找優質咖啡方案的企業，我們都懂你的需求：
+                </h2>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- 【給個人 / B2C 咖啡愛好者】 -->
+                <div class="p-8 rounded-3xl bg-amber-50/60 border border-amber-200/60 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-200/60 text-amber-900 text-xs font-bold mb-6">
+                            <i class="fa-solid fa-user"></i>
+                            <span>給個人 / B2C 咖啡愛好者</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">告別馬虎的速溶與繁瑣手沖</h3>
+                        <ul class="space-y-3 text-slate-700 text-sm">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-500 mt-1"></i>
+                                <span>早上趕時間上班/上課，完全沒空慢慢溫壺、磨豆與手沖？</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-500 mt-1"></i>
+                                <span>厭倦了三合一咖啡的死甜人工香精，或超商咖啡總是帶有焦苦味？</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                <span>渴望在任何時刻（居家、露營、辦公桌），隨時喝到乾淨清爽、風味分明的精品咖啡。</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-amber-200/55 flex justify-end">
+                        <a href="#b2c-section" class="text-amber-800 font-bold text-sm flex items-center space-x-1 hover:underline">
+                            <span>查看個人方案</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 【給企業福委 / 辦公室 / 採購 / B2B】 -->
+                <div class="p-8 rounded-3xl bg-stone-900 text-white flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/30 text-amber-300 text-xs font-bold mb-6 border border-amber-500/30">
+                            <i class="fa-solid fa-building-user"></i>
+                            <span>給企業福委 / 辦公室採購 / B2B</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">打造滿意度爆棚的職場茶水間</h3>
+                        <ul class="space-y-3 text-stone-300 text-sm">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-1"></i>
+                                <span>員工常抱怨茶水間咖啡豆難喝，甚至經常開會時沒咖啡提神？</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-1"></i>
+                                <span>公司咖啡機維護麻煩、管線常故障，外包清潔與叫修費用高昂？</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>需要兼具高級質感與高性價比的辦公室咖啡方案，提升員工幸福感與商務接待水準。</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-white/10 flex justify-end">
+                        <a href="#b2b-section" class="text-amber-300 font-bold text-sm flex items-center space-x-1 hover:underline">
+                            <span>前往 B2B 企業專區</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊三：產品核心優勢（雙邊皆在乎的價值） -->
+    <section id="features" class="py-20 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-amber-700 font-bold text-sm tracking-widest uppercase">核心優勢</span>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    為什麼大家都在選我們的浸泡式咖啡？
+                </h2>
+                <p class="mt-4 text-slate-600 text-lg">嚴選頂級咖啡豆與專利濾袋設計，完美兼顧個人品味與企業採購效益</p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 優勢 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 hover:shadow-lg transition">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">莊園級精品豆</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        嚴選衣索比亞與瓜地馬拉高海拔產區，中淺焙保留豐富花香與明亮果酸，滿足挑剔味蕾與企業形象。
+                    </p>
+                </div>
+
+                <!-- 優勢 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 hover:shadow-lg transition">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">極致便利（免器具）</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        像茶包一樣，熱水浸泡 3 分鐘即可享用。個人省時省力，企業省去維護大型咖啡機的人力與高昂機器成本。
+                    </p>
+                </div>
+
+                <!-- 優勢 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 hover:shadow-lg transition">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">頂級防潮保鮮</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        獨立氮氣充填鋁箔/牛皮紙夾鏈包裝，完美阻隔光線與濕氣，長時間保存依然新鮮如剛烘焙出爐。
+                    </p>
+                </div>
+
+                <!-- 優勢 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 hover:shadow-lg transition">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">彈性規格與客製</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        提供精緻個人隨身包、辦公室大容量盒裝，以及企業節慶禮盒包裝與專屬貼標（OEM/ODM）服務。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊四：方案選擇（分流轉換區）—— 兼容重頭戲 -->
+    <section class="py-24 bg-white" id="b2c-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-amber-700 font-bold text-sm tracking-widest uppercase">方案與價格</span>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    選擇最適合您的採購方案
+                </h2>
+                <p class="mt-4 text-slate-600 text-lg">無論是寵愛自己的日常，或是為團隊打造優質福利，這裡都有完美對應方案</p>
+            </div>
+
+            <!-- Part A：個人與家用方案（B2C） -->
+            <div class="mb-20">
+                <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-stone-200">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-slate-900">Part A：個人與家用方案 (B2C)</h3>
+                        <p class="text-xs text-slate-500">寵愛自己的日常咖啡時光，在家輕鬆享受職人手沖感</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- B2C 方案 1 -->
+                    <div class="bg-stone-50 border border-stone-200 p-8 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-xl font-bold text-slate-900">嘗鮮體驗組 (10入)</h4>
+                                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-stone-200 text-stone-700">新手入門</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-6">精選花香調與果香調各半，適合初次嘗試，輕鬆解鎖好味道。</p>
+                            <div class="mb-6 flex items-baseline space-x-2">
+                                <span class="text-3xl font-extrabold text-slate-900">$420</span>
+                                <span class="text-slate-500 text-xs">/ 單盒入 (免運門檻 $800)</span>
+                            </div>
+                            <ul class="space-y-3 text-sm text-slate-700 mb-8">
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-amber-700"></i>
+                                    <span>內含 10 包獨立氮氣保鮮隨身包</span>
+                                  </li>
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-amber-700"></i>
+                                    <span>附贈手沖參數與風味對照卡</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <button onclick="openCheckoutModal('嘗鮮體驗組 (10入)', '$420')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow transition">
+                            立即購買嘗鮮組
+                        </button>
+                    </div>
+
+                    <!-- B2C 方案 2 (熱門) -->
+                    <div class="bg-gradient-to-b from-amber-900 to-stone-900 border-2 border-amber-600 p-8 rounded-3xl flex flex-col justify-between text-white relative shadow-xl">
+                        <div class="absolute -top-3 right-6 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            🔥 最熱銷・平均每杯銅板價
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-xl font-bold text-white">上班族囤貨組 (30入)</h4>
+                                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/30 text-amber-200 border border-amber-400/30">月拋組合</span>
+                            </div>
+                            <p class="text-amber-100 text-sm mb-6">一個月份的每日精神糧食，老客戶回購率最高首選。</p>
+                            <div class="mb-6 flex items-baseline space-x-2">
+                                <span class="text-3xl font-extrabold text-white">$1,080</span>
+                                <span class="text-amber-200 text-xs">/ 超值大包裝 (享免運)</span>
+                            </div>
+                            <ul class="space-y-3 text-sm text-amber-100 mb-8">
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>內含 30 包獨立氮氣保鮮隨身包</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>享有 85 折優惠（省下 $180）</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>全台超商免運費配送</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <button onclick="openCheckoutModal('上班族囤貨組 (30入)', '$1,080')" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-lg shadow-amber-600/30 transition">
+                            搶購囤貨組 (免運)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part B：企業福委、辦公室與經銷批發（B2B） -->
+            <div id="b2b-section" class="pt-10">
+                <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-amber-200">
+                    <div class="w-10 h-10 rounded-xl bg-amber-700 text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-slate-900">Part B：企業福委、辦公室與經銷批發 (B2B)</h3>
+                        <p class="text-xs text-slate-500">打造高效、高質感的職場茶水間與商業合作，提供專人對接與企業試飲</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-stone-900 via-amber-950 to-stone-900 p-8 sm:p-12 rounded-3xl text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                        <div>
+                            <span class="text-amber-400 font-bold text-xs tracking-widest uppercase bg-amber-500/20 px-3 py-1 rounded-full border border-amber-400/30">企業夥伴專屬優勢</span>
+                            <h4 class="mt-4 text-2xl sm:text-3xl font-extrabold text-white">
+                                專為企業福委與商務採購量身打造
+                            </h4>
+                            <p class="mt-3 text-stone-300 text-sm leading-relaxed">
+                                我們協助超過 100+ 家科技公司、金融機構與選物店升級茶水間與禮品採購。提供靈活的批發級距與完善的企業報支憑證。
+                            </p>
+
+                            <div class="mt-8 space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-white">量大批發優惠：</span>
+                                        <span class="text-stone-300 text-xs sm:text-sm">級距式量販折扣，福委會長期採購預算精省 30% 以上。</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-white">企業客製化 / 禮盒 (OEM/ODM)：</span>
+                                        <span class="text-stone-300 text-xs sm:text-sm">可配合節慶禮盒包裝，或印製企業專屬LOGO與祝福小卡。</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-white">完整核銷憑證：</span>
+                                        <span class="text-stone-300 text-xs sm:text-sm">可開立三聯式統一發票、支援月結或電匯等彈性付款方式。</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- B2B 詢價表單 -->
+                        <div class="bg-white p-8 rounded-3xl text-slate-800 shadow-xl">
+                            <div class="mb-6">
+                                <h5 class="text-xl font-bold text-slate-900">填寫 B2B 企業採購 / 樣品申請表</h5>
+                                <p class="text-slate-500 text-xs mt-1">我們將於 1 個工作天內由專人與您聯繫，並免費寄送企業試飲包。</p>
+                            </div>
+
+                            <form id="b2bForm" onsubmit="handleB2BSubmit(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">公司行號 / 組織名稱</label>
+                                    <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm" placeholder="例如：OO科技股份有限公司 福委會">
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">聯絡人姓名</label>
+                                        <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm" placeholder="例如：王總幹事">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">聯絡電話</label>
+                                        <input type="tel" required class="w-full px-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm" placeholder="0912345678">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">電子信箱</label>
+                                        <input type="email" required class="w-full px-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm" placeholder="hr@company.com">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">預計每月需求量</label>
+                                        <select class="w-full px-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm bg-white">
+                                            <option>50 - 100 包 (辦公室試用)</option>
+                                            <option>100 - 300 包 (中小企業常態補給)</option>
+                                            <option>300 - 1000 包以上 (大型企業/多據點)</option>
+                                            <option>節慶禮盒與客製化採購</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full py-3.5 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-sm shadow-lg shadow-amber-700/30 transition">
+                                    送出 B2B 詢價與免費試飲申請
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊五：社會證明（雙軌見證） -->
+    <section class="py-20 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-amber-700 font-bold text-sm tracking-widest uppercase">真實見證</span>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    聽聽個人買家與企業福委怎麼說
+                </h2>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- B2C 評價 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-1 text-amber-500 text-sm mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="text-xs font-bold px-2.5 py-1 rounded bg-amber-50 text-amber-800">個人買家 (B2C)</span>
+                        <p class="text-slate-700 text-sm leading-relaxed italic mt-4">
+                            「在家不用磨豆子就能喝到乾淨清爽的花香調，太幸福了！早上趕著出門只要丟一杯熱水，3分鐘搞定，完全超越便利商店咖啡。」
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-stone-100 flex items-center space-x-3">
+                        <img src="https://placehold.co/100x100/b45309/ffffff?text=AL" alt="Alex Lin" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <div class="font-bold text-slate-900 text-xs">林小姐 (自由工作者)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B2B 評價 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-1 text-amber-500 text-sm mb-4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="text-xs font-bold px-2.5 py-1 rounded bg-stone-900 text-amber-300">企業福委會 (B2B)</span>
+                        <p class="text-slate-700 text-sm leading-relaxed italic mt-4">
+                            「我們公司福委會換這款浸泡式咖啡之後，同事每天上班精神都很好，接待客戶時也很有面子。採購流程非常順暢且能開立三聯發票！」
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-stone-100 flex items-center space-x-3">
+                        <img src="https://placehold.co/100x100/3d2314/ffffff?text=DW" alt="David Wang" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <div class="font-bold text-slate-900 text-xs">王總幹事 (某科技公司福委會)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊六：常見問題 (FAQ) -->
+    <section id="faq" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-amber-700 font-bold text-sm tracking-widest uppercase">常見疑問</span>
+                <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    你可能想知道的問題
+                </h2>
+            </div>
+
+            <div class="mt-12 space-y-4">
+                <!-- FAQ 1 -->
+                <div class="bg-stone-50 rounded-2xl border border-stone-200 overflow-hidden">
+                    <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                        <span>Q1：個人購買有免運門檻嗎？（B2C 相關說明）</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-slate-600 text-sm leading-relaxed">
+                        有的！個人單筆消費滿 $800 即享全台超商免運費配送；購買「上班族囤貨組 (30入)」則直接享有免運優惠。
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-stone-50 rounded-2xl border border-stone-200 overflow-hidden">
+                    <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                        <span>Q2：企業採購（B2B）可以先申請樣品試喝嗎？</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-slate-600 text-sm leading-relaxed">
+                        可以！我們非常歡迎企業福委會或辦公室採購申請。您只需填寫上方「B2B 企業採購與樣品申請表」，我們將有專人與您聯絡並免費寄送試飲包至貴公司。
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-stone-50 rounded-2xl border border-stone-200 overflow-hidden">
+                    <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                        <span>Q3：B2B 批發或福委採購的交期與付款方式為何？</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition transform"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-slate-600 text-sm leading-relaxed">
+                        常態品項下單後 2-3 個工作天內出貨；支援三聯式統一發票核銷、銀行電匯或企業月結服務，大宗採購另有專屬優惠專案。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 區塊七：頁尾最終行動呼籲 (Final CTA) -->
+    <section class="py-20 bg-gradient-to-b from-stone-900 to-amber-950 text-white text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                開始享受極致的咖啡體驗
+            </h2>
+            <p class="mt-4 text-stone-300 text-base max-w-xl mx-auto">
+                無論是個人品味日常，或為團隊打造高效茶水間，現在就選擇最適合您的方案。
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-5">
+                <a href="#b2c-section" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-base shadow-xl transition">
+                    <i class="fa-solid fa-mug-saucer mr-2"></i> 我是個人買家，去逛逛
+                </a>
+                <a href="#b2b-section" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-base border border-white/20 transition backdrop-blur-md">
+                    <i class="fa-solid fa-building mr-2"></i> 我是企業/福委，聯絡我們
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 互動式結帳彈窗 (Checkout Modal for B2C) -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative">
+            <button onclick="closeCheckoutModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-6">
+                <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-50 text-amber-800">個人快速結帳</span>
+                <h3 class="text-2xl font-extrabold text-slate-900 mt-2">確認訂單資訊</h3>
+                <p class="text-slate-500 text-sm mt-1">您選擇的方案：<span id="modalPlanName" class="font-bold text-slate-800"></span></p>
+            </div>
+
+            <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">收件人姓名</label>
+                    <input type="text" required class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm" placeholder="例如：王小明">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">手機號碼 (超商取貨)</label>
+                    <input type="tel" required class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm" placeholder="0912345678">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">電子信箱</label>
+                    <input type="email" required class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-amber-600 text-sm" placeholder="name@example.com">
+                </div>
+
+                <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-slate-500">應付總金額</div>
+                        <div class="text-2xl font-extrabold text-amber-700" id="modalPlanPrice"></div>
+                    </div>
+                    <button type="submit" class="px-8 py-3.5 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-sm shadow-lg shadow-amber-700/30 transition">
+                        確認安全結帳
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
+    <!-- 成功提示彈窗 -->
+    <div id="successModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto mb-6">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 id="successTitle" class="text-2xl font-extrabold text-slate-900 mb-2">訂單建立成功！</h3>
+            <p id="successDesc" class="text-slate-600 text-sm mb-6">
+                感謝您的訂購！我們已將訂單確認信件發送至您的信箱。
+            </p>
+            <button onclick="closeSuccessModal()" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition">
+                返回首頁
+            </button>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-700 flex items-center justify-center text-white font-bold text-sm">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="text-white font-bold text-base">BrewCraft 職人浸泡式咖啡 © 2026</span>
+            </div>
+            <div class="text-xs text-slate-500 text-center md:text-right">
+                提供 B2C 個人品味與 B2B 企業福委採購。合法開立統一發票。
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
     <script>
-        async function runAutoLeadSystem() {
-            const apiKey = document.getElementById('apiKey').value.trim();
-            const business = document.getElementById('targetBusiness').value.trim();
-            const platform = document.getElementById('targetPlatform').value;
-            const resultDiv = document.getElementById('resultContent');
-            const loadingDiv = document.getElementById('loading');
-            const submitBtn = document.getElementById('submitBtn');
-            const statusSpan = document.getElementById('systemStatus');
+        // 行動版選單開關
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-            if (!apiKey) {
-                alert('請先輸入您的 Gemini API Key！');
-                return;
-            }
-            if (!business) {
-                alert('請填寫目標推廣業務或產品！');
-                return;
-            }
+        // FAQ 手風琴效果
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
 
-            // 切換載入狀態
-            loadingDiv.classList.remove('hidden');
-            resultDiv.innerHTML = '';
-            submitBtn.disabled = true;
-            statusSpan.className = 'px-2.5 py-1 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-full text-xs font-medium animate-pulse';
-            statusSpan.innerText = '系統運行中 (AI 採集與觸達)';
+        // 結帳 Modal
+        const checkoutModal = document.getElementById('checkoutModal');
+        const successModal = document.getElementById('successModal');
+        const modalPlanName = document.getElementById('modalPlanName');
+        const modalPlanPrice = document.getElementById('modalPlanPrice');
+        const successTitle = document.getElementById('successTitle');
+        const successDesc = document.getElementById('successDesc');
 
-            const prompt = `
-你是一個頂級的跨平台自動化獲客系統（AI 營銷黑科技機器人）。針對以下業務需求，請為我產出一套完整的自動化引流、精準採集與轉換方案：
-
-- 推廣業務/產品：${business}
-- 主力引流平台：${platform}
-
-請以專業、結構化的方式提供以下內容：
-1. **全球潛在客戶精準採集策略**：在該平台上，我們該如何設定條件（關鍵字、標籤、社群群組）以自動採集高價值線索？
-2. **AI 自動觸達與引流腳本**：提供 2 組高回覆率的私訊／評論引流自動化對話腳本。
-3. **高效率轉化漏斗規劃**：如何透過系統自動化跟進，提升詢盤與成交率？
-4. **帳號安全與防封號實操建議**：多帳號輪流操作與頻率控制的注意事項。
-`;
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: prompt }]
-                        }]
-                    })
-                });
-
-                const data = await response.json();
-                
-                if (data.error) {
-                    throw new Error(data.error.message || 'API 呼叫失敗');
-                }
-
-                const textResult = data.candidates[0].content.parts[0].text;
-                resultDiv.innerHTML = marked.parse(textResult);
-
-                statusSpan.className = 'px-2.5 py-1 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-xs font-medium';
-                statusSpan.innerText = '系統運作正常 - 數據同步完成';
-
-            } catch (error) {
-                resultDiv.innerHTML = `<div class="p-4 bg-red-900/40 border border-red-500/50 text-red-300 rounded-xl">系統異常錯誤：${error.message}</div>`;
-                statusSpan.className = 'px-2.5 py-1 bg-red-500/20 text-red-400 border border-red-500/30 rounded-full text-xs font-medium';
-                statusSpan.innerText = '系統異常停止';
-            } finally {
-                loadingDiv.classList.add('hidden');
-                submitBtn.disabled = false;
-            }
+        function openCheckoutModal(planName, price) {
+            modalPlanName.textContent = planName;
+            modalPlanPrice.textContent = price;
+            checkoutModal.classList.remove('hidden');
         }
+
+        function closeCheckoutModal() {
+            checkoutModal.classList.add('hidden');
+        }
+
+        function handleCheckoutSubmit(event) {
+            event.preventDefault();
+            checkoutModal.classList.add('hidden');
+            successTitle.textContent = "訂單建立成功！";
+            successDesc.textContent = "感謝您的訂購！我們已將訂單確認信件發送至您的信箱，將盡速為您安排出貨。";
+            successModal.classList.remove('hidden');
+        }
+
+        function handleB2BSubmit(event) {
+            event.preventDefault();
+            successTitle.textContent = "B2B 企業詢價已送出！";
+            successDesc.textContent = "感謝您的填寫！我們的企業業務專員將於 1 個工作天內與您聯繫，並安排免費樣品寄送。";
+            successModal.classList.remove('hidden');
+        }
+
+        function closeSuccessModal() {
+            successModal.classList.add('hidden');
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target === checkoutModal) closeCheckoutModal();
+            if (e.target === successModal) closeSuccessModal();
+        });
     </script>
 </body>
 </html>
