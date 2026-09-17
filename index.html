@@ -278,7 +278,7 @@
                 <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
                     選擇最適合您的採購方案
                 </h2>
-                <p class="mt-4 text-slate-600 text-lg">無論是寵愛自己的日常，或是為團隊打造優質福利，這裡都有完美對應方案</p>
+                <p class="mt-4 text-slate-600 text-lg">提供職人浸泡式咖啡、新鮮烘焙咖啡豆、清爽冷萃咖啡包與義式配方豆，滿足各種品味需求</p>
             </div>
 
             <!-- Part A：個人與家用方案（B2C） -->
@@ -289,72 +289,337 @@
                     </div>
                     <div>
                         <h3 class="text-2xl font-extrabold text-slate-900">Part A：個人與家用方案 (B2C)</h3>
-                        <p class="text-xs text-slate-500">寵愛自己的日常咖啡時光，在家輕鬆享受職人手沖感</p>
+                        <p class="text-xs text-slate-500">寵愛自己的日常咖啡時光，在家輕鬆享受職人手沖、冷萃與義式配方風味</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- B2C 方案 1 -->
-                    <div class="bg-stone-50 border border-stone-200 p-8 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
-                        <div>
-                            <div class="flex justify-between items-center mb-4">
-                                <h4 class="text-xl font-bold text-slate-900">嘗鮮體驗組 (10入)</h4>
-                                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-stone-200 text-stone-700">新手入門</span>
+                <!-- 分類 Tab 或多品項展示 -->
+                <div class="space-y-16">
+                    <!-- 1. 浸泡式咖啡包系列 -->
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
+                            <i class="fa-solid fa-mug-hot text-amber-700"></i>
+                            <span>經典熱銷：浸泡式咖啡包系列</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            <!-- B2C 方案 1 -->
+                            <div class="bg-stone-50 border border-stone-200 p-8 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-xl font-bold text-slate-900">浸泡式咖啡 嘗鮮體驗組 (10入)</h5>
+                                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-stone-200 text-stone-700">新手入門</span>
+                                    </div>
+                                    <p class="text-slate-600 text-sm mb-6">精選花香調與果香調各半，適合初次嘗試，輕鬆解鎖好味道。</p>
+                                    <div class="mb-6 flex items-baseline space-x-2">
+                                        <span class="text-3xl font-extrabold text-slate-900">$420</span>
+                                        <span class="text-slate-500 text-xs">/ 單盒入 (免運門檻 $800)</span>
+                                    </div>
+                                    <ul class="space-y-3 text-sm text-slate-700 mb-8">
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-amber-700"></i>
+                                            <span>內含 10 包獨立氮氣保鮮隨身包</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-amber-700"></i>
+                                            <span>附贈手沖參數與風味對照卡</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button onclick="openCheckoutModal('浸泡式咖啡 嘗鮮體驗組 (10入)', '$420')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow transition">
+                                    立即購買嘗鮮組
+                                </button>
                             </div>
-                            <p class="text-slate-600 text-sm mb-6">精選花香調與果香調各半，適合初次嘗試，輕鬆解鎖好味道。</p>
-                            <div class="mb-6 flex items-baseline space-x-2">
-                                <span class="text-3xl font-extrabold text-slate-900">$420</span>
-                                <span class="text-slate-500 text-xs">/ 單盒入 (免運門檻 $800)</span>
+
+                            <!-- B2C 方案 2 (熱門) -->
+                            <div class="bg-gradient-to-b from-amber-900 to-stone-900 border-2 border-amber-600 p-8 rounded-3xl flex flex-col justify-between text-white relative shadow-xl">
+                                <div class="absolute -top-3 right-6 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                                    🔥 最熱銷・平均每杯銅板價
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-xl font-bold text-white">浸泡式咖啡 上班族囤貨組 (30入)</h5>
+                                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/30 text-amber-200 border border-amber-400/30">月拋組合</span>
+                                    </div>
+                                    <p class="text-amber-100 text-sm mb-6">一個月份的每日精神糧食，老客戶回購率最高首選。</p>
+                                    <div class="mb-6 flex items-baseline space-x-2">
+                                        <span class="text-3xl font-extrabold text-white">$1,080</span>
+                                        <span class="text-amber-200 text-xs">/ 超值大包裝 (享免運)</span>
+                                    </div>
+                                    <ul class="space-y-3 text-sm text-amber-100 mb-8">
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-emerald-400"></i>
+                                            <span>內含 30 包獨立氮氣保鮮隨身包</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-emerald-400"></i>
+                                            <span>享有 85 折優惠（省下 $180）</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-emerald-400"></i>
+                                            <span>全台超商免運費配送</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button onclick="openCheckoutModal('浸泡式咖啡 上班族囤貨組 (30入)', '$1,080')" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-lg shadow-amber-600/30 transition">
+                                    搶購囤貨組 (免運)
+                                </button>
                             </div>
-                            <ul class="space-y-3 text-sm text-slate-700 mb-8">
-                                <li class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-check text-amber-700"></i>
-                                    <span>內含 10 包獨立氮氣保鮮隨身包</span>
-                                  </li>
-                                <li class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-check text-amber-700"></i>
-                                    <span>附贈手沖參數與風味對照卡</span>
-                                </li>
-                            </ul>
                         </div>
-                        <button onclick="openCheckoutModal('嘗鮮體驗組 (10入)', '$420')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow transition">
-                            立即購買嘗鮮組
-                        </button>
                     </div>
 
-                    <!-- B2C 方案 2 (熱門) -->
-                    <div class="bg-gradient-to-b from-amber-900 to-stone-900 border-2 border-amber-600 p-8 rounded-3xl flex flex-col justify-between text-white relative shadow-xl">
-                        <div class="absolute -top-3 right-6 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-                            🔥 最熱銷・平均每杯銅板價
-                        </div>
-                        <div>
-                            <div class="flex justify-between items-center mb-4">
-                                <h4 class="text-xl font-bold text-white">上班族囤貨組 (30入)</h4>
-                                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/30 text-amber-200 border border-amber-400/30">月拋組合</span>
+                    <!-- 2. 冷萃咖啡包系列 -->
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
+                            <i class="fa-solid fa-snowflake text-sky-600"></i>
+                            <span>清涼解暑：冷萃咖啡包系列 (Cold Brew)</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            <!-- 冷萃 10包裝 -->
+                            <div class="bg-stone-50 border border-stone-200 p-8 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-xl font-bold text-slate-900">冷萃咖啡包 (10包裝)</h5>
+                                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-100 text-sky-800">夏日必備</span>
+                                    </div>
+                                    <p class="text-slate-600 text-sm mb-6">低溫慢速萃取，口感絲滑、無苦澀感，夜晚放入冰箱隔天即享香醇冰咖啡。</p>
+                                    <div class="mb-6 flex items-baseline space-x-2">
+                                        <span class="text-3xl font-extrabold text-slate-900">$450</span>
+                                        <span class="text-slate-500 text-xs">/ 盒裝</span>
+                                    </div>
+                                    <ul class="space-y-3 text-sm text-slate-700 mb-8">
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-amber-700"></i>
+                                            <span>內含 10 包專利冷萃包裝袋</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-amber-700"></i>
+                                            <span>免濾紙、浸泡 8-12 小時即可飲用</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button onclick="openCheckoutModal('冷萃咖啡包 (10包裝)', '$450')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow transition">
+                                    立即購買冷萃10包裝
+                                </button>
                             </div>
-                            <p class="text-amber-100 text-sm mb-6">一個月份的每日精神糧食，老客戶回購率最高首選。</p>
-                            <div class="mb-6 flex items-baseline space-x-2">
-                                <span class="text-3xl font-extrabold text-white">$1,080</span>
-                                <span class="text-amber-200 text-xs">/ 超值大包裝 (享免運)</span>
+
+                            <!-- 冷萃 30包裝 -->
+                            <div class="bg-stone-50 border border-stone-200 p-8 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-xl font-bold text-slate-900">冷萃咖啡包 (30包裝)</h5>
+                                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-100 text-sky-800">超值大包裝</span>
+                                    </div>
+                                    <p class="text-slate-600 text-sm mb-6">大容量囤貨裝，滿足全家人或整個夏天的冰咖啡需求，省時又划算。</p>
+                                    <div class="mb-6 flex items-baseline space-x-2">
+                                        <span class="text-3xl font-extrabold text-slate-900">$1,180</span>
+                                        <span class="text-slate-500 text-xs">/ 超值大包裝 (享免運)</span>
+                                    </div>
+                                    <ul class="space-y-3 text-sm text-slate-700 mb-8">
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-amber-700"></i>
+                                            <span>內含 30 包獨立冷萃包</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-check text-amber-700"></i>
+                                            <span>享 88 折優惠並全台免運</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button onclick="openCheckoutModal('冷萃咖啡包 (30包裝)', '$1,180')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow transition">
+                                    搶購冷萃30包裝 (免運)
+                                </button>
                             </div>
-                            <ul class="space-y-3 text-sm text-amber-100 mb-8">
-                                <li class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-check text-emerald-400"></i>
-                                    <span>內含 30 包獨立氮氣保鮮隨身包</span>
-                                </li>
-                                <li class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-check text-emerald-400"></i>
-                                    <span>享有 85 折優惠（省下 $180）</span>
-                                </li>
-                                <li class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-check text-emerald-400"></i>
-                                    <span>全台超商免運費配送</span>
-                                </li>
-                            </ul>
                         </div>
-                        <button onclick="openCheckoutModal('上班族囤貨組 (30入)', '$1,080')" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-lg shadow-amber-600/30 transition">
-                            搶購囤貨組 (免運)
-                        </button>
+                    </div>
+
+                    <!-- 3. 精品咖啡豆系列 (阿卡比卡 & 羅布斯塔) -->
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
+                            <i class="fa-solid fa-seedling text-amber-700"></i>
+                            <span>職人烘焙：咖啡豆系列 (阿拉比卡 & 羅布斯塔)</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            <!-- 阿拉比卡咖啡豆 -->
+                            <div class="bg-stone-50 border border-stone-200 p-8 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-xl font-bold text-slate-900">100% 阿拉比卡咖啡豆</h5>
+                                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-900">精品風味</span>
+                                    </div>
+                                    <p class="text-slate-600 text-sm mb-6">香氣濃郁、口感層次豐富，帶有迷人果香與明亮酸質，手沖與義式皆宜。</p>
+                                    
+                                    <div class="space-y-4 mb-6">
+                                        <div class="flex justify-between items-center p-3 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-sm">250克 裝</div>
+                                                <div class="text-xs text-slate-500">適合嘗鮮與日常品味</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-lg">$350</div>
+                                                <button onclick="openCheckoutModal('阿拉比卡咖啡豆 (250克)', '$350')" class="mt-1 px-4 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition">加入選購</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between items-center p-3 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-sm">500克 裝</div>
+                                                <div class="text-xs text-slate-500">超值分享包 (享9折)</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-lg">$650</div>
+                                                <button onclick="openCheckoutModal('阿拉比卡咖啡豆 (500克)', '$650')" class="mt-1 px-4 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition">加入選購</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 羅布斯塔咖啡豆 -->
+                            <div class="bg-stone-50 border border-stone-200 p-8 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-xl font-bold text-slate-900">頂級羅布斯塔咖啡豆</h5>
+                                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-stone-200 text-stone-800">濃郁厚實</span>
+                                    </div>
+                                    <p class="text-slate-600 text-sm mb-6">咖啡因扎實、crema 豐富濃厚，帶有獨特可可與木質尾韻，適合拿鐵或義式濃縮。</p>
+                                    
+                                    <div class="space-y-4 mb-6">
+                                        <div class="flex justify-between items-center p-3 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-sm">250克 裝</div>
+                                                <div class="text-xs text-slate-500">濃厚系咖啡首選</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-lg">$280</div>
+                                                <button onclick="openCheckoutModal('羅布斯塔咖啡豆 (250克)', '$280')" class="mt-1 px-4 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition">加入選購</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between items-center p-3 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-sm">500克 裝</div>
+                                                <div class="text-xs text-slate-500">超值分享包 (享9折)</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-lg">$520</div>
+                                                <button onclick="openCheckoutModal('羅布斯塔咖啡豆 (500克)', '$520')" class="mt-1 px-4 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition">加入選購</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. 義式配方豆系列 (新加入：No.1, No.2, No.3) -->
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
+                            <i class="fa-solid fa-fire text-amber-600"></i>
+                            <span>職人配方：義式配方豆系列 (Espresso Blends)</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                            <!-- 義式配方豆 NO.1 -->
+                            <div class="bg-stone-50 border border-stone-200 p-6 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-lg font-bold text-slate-900">91 義式配方豆 NO.1</h5>
+                                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900">平衡香醇</span>
+                                    </div>
+                                    <p class="text-slate-600 text-xs mb-6 leading-relaxed">完美平衡的黃金比例，帶有堅果香氣與焦糖甜感，濃縮與牛奶咖啡皆完美契合。</p>
+                                    
+                                    <div class="space-y-3 mb-6">
+                                        <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-xs">250克 裝</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-base">$380</div>
+                                                <button onclick="openCheckoutModal('91義式配方豆NO.1 (250克)', '$380')" class="mt-1 px-3 py-1 bg-slate-900 text-white rounded-lg text-[11px] font-bold hover:bg-slate-800 transition">選購</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-xs">500克 裝</div>
+                                                <div class="text-[10px] text-slate-500">超值分享包</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-base">$700</div>
+                                                <button onclick="openCheckoutModal('91義式配方豆NO.1 (500克)', '$700')" class="mt-1 px-3 py-1 bg-slate-900 text-white rounded-lg text-[11px] font-bold hover:bg-slate-800 transition">選購</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 義式配方豆 NO.2 -->
+                            <div class="bg-stone-50 border border-stone-200 p-6 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-lg font-bold text-slate-900">73 義式配方豆 NO.2</h5>
+                                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900">厚實濃郁</span>
+                                    </div>
+                                    <p class="text-slate-600 text-xs mb-6 leading-relaxed">重烘焙深度風味，口感厚實、苦甜交織，帶有黑巧克力與香料尾韻，拿鐵首選。</p>
+                                    
+                                    <div class="space-y-3 mb-6">
+                                        <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-xs">250克 裝</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-base">$360</div>
+                                                <button onclick="openCheckoutModal('73義式配方豆NO.2 (250克)', '$360')" class="mt-1 px-3 py-1 bg-slate-900 text-white rounded-lg text-[11px] font-bold hover:bg-slate-800 transition">選購</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-xs">500克 裝</div>
+                                                <div class="text-[10px] text-slate-500">超值分享包</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-base">$660</div>
+                                                <button onclick="openCheckoutModal('73義式配方豆NO.2 (500克)', '$660')" class="mt-1 px-3 py-1 bg-slate-900 text-white rounded-lg text-[11px] font-bold hover:bg-slate-800 transition">選購</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 義式配方豆 NO.3 -->
+                            <div class="bg-stone-50 border border-stone-200 p-6 rounded-3xl flex flex-col justify-between hover:shadow-md transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h5 class="text-lg font-bold text-slate-900">55 義式配方豆 NO.3</h5>
+                                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900">明亮果香</span>
+                                    </div>
+                                    <p class="text-slate-600 text-xs mb-6 leading-relaxed">中淺焙創新義式配方，展現明亮的花果香酸質與清爽口感，顛覆傳統義式印象。</p>
+                                    
+                                    <div class="space-y-3 mb-6">
+                                        <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-xs">250克 裝</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-base">$390</div>
+                                                <button onclick="openCheckoutModal('55義式配方豆NO.3 (250克)', '$390')" class="mt-1 px-3 py-1 bg-slate-900 text-white rounded-lg text-[11px] font-bold hover:bg-slate-800 transition">選購</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between items-center p-2.5 bg-white rounded-xl border border-stone-200">
+                                            <div>
+                                                <div class="font-bold text-slate-900 text-xs">500克 裝</div>
+                                                <div class="text-[10px] text-slate-500">超值分享包</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="font-extrabold text-amber-700 text-base">$720</div>
+                                                <button onclick="openCheckoutModal('55義式配方豆NO.3 (500克)', '$720')" class="mt-1 px-3 py-1 bg-slate-900 text-white rounded-lg text-[11px] font-bold hover:bg-slate-800 transition">選購</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
